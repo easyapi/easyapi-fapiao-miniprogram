@@ -1,0 +1,8 @@
+{
+  "navigationBarBackgroundColor": "#fff",
+  "navigationBarTextStyle": "black",
+  "navigationBarTitleText": "二维码开票",
+  "navigationStyle": "default",
+  "usingComponents": {
+  }
+}

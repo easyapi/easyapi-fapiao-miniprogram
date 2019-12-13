@@ -1,0 +1,37 @@
+<!--index.wxml-->
+<view class='container'>
+  <scroll-view class='order-scroll' scroll-y bindscrolltolower="getProductList">
+  <view class="text-align-center">
+    <text class='floor-title_name fz-18'>欢迎，无锡帮趣数据服务有限公司</text>
+  </view>
+    <view>
+      <view class='flex-r type-btn' >
+        <view class="text-align-center type-title {{active == index ? 'border-color':''}}"
+        wx:for='{{tabs}}' wx:for-item="item" wx:for-index="index" 
+        wx:key="{{index}}" bindtap='getItemImfor' 
+        data-item="{{item}}" 
+        data-index="{{index}}">
+          {{item.name}}
+        </view>
+      </view>
+      <view class='advertising'>
+        <van-cell-group>
+          <van-field type="digit" focus="true"
+            value="{{ value }}"
+            placeholder="请输入开票金额"
+            border="{{ false }}"
+            bind:blur="getInputVal"
+          />
+        </van-cell-group>
+      </view>
+
+      <view class='operation-btn'>
+         <van-button size="large" custom-class="btn-color" bindtap='getWeAppQRDecode'>打印二维码发票</van-button>
+      </view>
+      <view class='operation-btn'>
+        <van-button size="large" bindtap='seeQRcode'>查看二维码</van-button>
+      </view>
+      <van-dialog id="van-dialog" />
+    </view>
+  </scroll-view>
+</view>

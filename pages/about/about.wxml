@@ -1,0 +1,20 @@
+<!--index.wxml-->
+<view class='container'>
+  <view class='flex-r title'>
+    <text class="fz-18">关于我们</text>
+  </view>
+  <view class='flex-r text-tips'>
+    <text class="fz-14">企业文化：</text>
+  </view>
+  <view class='flex-r text-tips'>
+    <text>科技为先！ 质量为上！诚信为本！ 满意为标！</text>
+  </view>
+  <view class='flex-r text-tips'>
+    <text class="fz-14">关于我们：</text>
+  </view>
+  <view class='flex-r text-area'>
+  <text>
+    小票二维码是由上海帮趣网络技术有限公司所组建的技术研发团队，研发的为了展示小票开票流程的小程序。上海帮趣网络技术有限公司10余年专注于API的理解与探讨，其中电子发票一站式发票服务平台，是旗下一场景化服务，支持电子发票，纸质发票，轻松与您的产品无缝对接，引领发票数字化服务，提升客户发票生产力。
+  </text>
+  </view>
+</view>

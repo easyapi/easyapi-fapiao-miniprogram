@@ -1,0 +1,82 @@
+{
+  "pages": [
+    "pages/login/login",
+    "pages/index/index",
+    "pages/webViewPage/webViewPage",
+    "pages/printer/index",
+    "pages/about/about"
+  ],
+  "window": {
+    "navigationBarBackgroundColor": "#fff",
+    "navigationBarTextStyle": "black",
+    "navigationBarTitleText": "二维码发票",
+    "backgroundColor": "#f4f4f4",
+    "backgroundTextStyle": "dark",
+    "enablePullDownRefresh": false
+  },
+  "tabBar": {
+    "list": [
+      {
+        "pagePath": "pages/index/index",
+        "iconPath": "images/tabbar/tabbar-share.png",
+        "selectedIconPath": "images/tabbar/tabbar-share-active.png",
+        "text": "开票"
+      },
+      {
+        "pagePath": "pages/about/about",
+        "iconPath": "images/tabbar/tabbar-my.png",
+        "selectedIconPath": "images/tabbar/tabbar-my-active.png",
+        "text": "关于"
+      }
+    ],
+    "backgroundColor": "#fff",
+    "selectedColor": "#e8370d"
+  },
+  "sitemapLocation": "sitemap.json",
+  "usingComponents": {
+    "van-button": "/component/button/index",
+    "van-cell": "/component/cell/index",
+    "van-progress": "/component/progress/index",
+    "van-rate": "/component/rate/index",
+    "van-cell-group": "/component/cell-group/index",
+    "van-icon": "/component/icon/index",
+    "van-row": "/component/row/index",
+    "van-col": "/component/col/index",
+    "van-checkbox": "/component/checkbox/index",
+    "van-checkbox-group": "/component/checkbox-group/index",
+    "van-popup": "/component/popup/index",
+    "van-datetime-picker": "/component/datetime-picker/index",
+    "van-field": "/component/field/index",
+    "van-picker": "/component/picker/index",
+    "van-radio": "/component/radio/index",
+    "van-radio-group": "/component/radio-group/index",
+    "van-search": "/component/search/index",
+    "van-stepper": "/component/stepper/index",
+    "van-switch": "/component/switch/index",
+    "van-switch-cell": "/component/switch-cell/index",
+    "van-action-sheet": "/component/action-sheet/index",
+    "van-dialog": "/component/dialog/index",
+    "van-loading": "/component/loading/index",
+    "van-notify": "/component/notify/index",
+    "van-swipe-cell": "/component/swipe-cell/index",
+    "van-toast": "/component/toast/index",
+    "van-collapse": "/component/collapse/index",
+    "van-collapse-item": "/component/collapse-item/index",
+    "van-notice-bar": "/component/notice-bar/index",
+    "van-panel": "/component/panel/index",
+    "van-steps": "/component/steps/index",
+    "van-tag": "/component/tag/index",
+    "van-tree-select": "/component/tree-select/index",
+    "van-badge": "/component/badge/index",
+    "van-badge-group": "/component/badge-group/index",
+    "van-nav-bar": "/component/nav-bar/index",
+    "van-tab": "/component/tab/index",
+    "van-tabs": "/component/tabs/index",
+    "van-area": "/component/area/index",
+    "van-submit-bar": "/component/submit-bar/index",
+    "van-card": "/component/card/index",
+    "van-goods-action": "/component/goods-action/index",
+    "van-goods-action-icon": "/component/goods-action-icon/index",
+    "van-goods-action-button": "/component/goods-action-button/index"
+  }
+}
