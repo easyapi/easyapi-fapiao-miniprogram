@@ -1,4 +1,5 @@
-//app.js
+import updateManager from './common/updateManager';
+
 App({
   onLaunch: function() {
     // 展示本地存储能力
@@ -32,6 +33,9 @@ App({
         }
       }
     })
+  },
+  onShow: function () {
+    updateManager();
   },
   globalData: {
     userInfo: null

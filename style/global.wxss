@@ -1,0 +1,7 @@
+
+.loading-more,
+.noData {
+  width: 100%;
+  text-align: center;
+  margin-bottom: 20rpx;
+}

@@ -1,0 +1,10 @@
+# Created by .ignore support plugin (hsz.mobi)
+
+.idea
+
+.DS_Store
+
+miniprogram_npm
+
+node_modules
+

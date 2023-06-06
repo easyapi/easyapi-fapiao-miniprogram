@@ -1,7 +1,6 @@
-@import "/component/common/index.wxss";
+@import 'style/global.wxss';
 
 page {
-  /* -webkit-text-size-adjust: none; */
   width: 100%;
   height: 100%;
   font-size: 24rpx;
