@@ -179,27 +179,6 @@ Page({
    * 获取数据表格的小区recordId
    */
   getTableLocationList(userLocations) {
-    //小区名称列表
-    let names = []
-    userLocations.forEach(item => {
-      names.push(item.location.name)
-    })
-    let data = {
-      relation: "and",
-      conditions: [{
-        field: "name",
-        operator: "intersection",
-        value: names
-      }]
-    }
-    getTableLocationList(data).then(res => {
-      res.data.content.forEach((item, index) => {
-        userLocations[index].location.tableRecordId = item.recordId
-      })
-      wx.redirectTo({
-        url: '/pages/home/index/index',
-      })
-    })
   },
 
   /**
