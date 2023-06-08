@@ -4,5 +4,10 @@
 
 "@vant/weapp@^1.10.19":
   version "1.10.19"
-  resolved "https://mirrors.cloud.tencent.com/npm/@vant/weapp/-/weapp-1.10.19.tgz#539bb7e4d82ff578ae25268d3d638244521c7add"
+  resolved "https://mirrors.cloud.tencent.com/npm/@vant/weapp/-/weapp-1.10.19.tgz"
   integrity sha512-RStOPlSELi9lqim9dGagguViUVMNnfZaEceZ248JZgPjn5TzL2nwwHGWl9VI69SBPC+5MPS+LXm7Z4jcdscFeg==
+
+vant-weapp@^0.5.29:
+  version "0.5.29"
+  resolved "https://registry.npmmirror.com/vant-weapp/-/vant-weapp-0.5.29.tgz"
+  integrity sha512-RMc0Ga914XFwspw2WuOMU8bOHlIkua8X1DoQ/KPnGQzjwT1uEL4S7W186EmaHF1wN2krB9BVd0LdRRt39dGh6Q==

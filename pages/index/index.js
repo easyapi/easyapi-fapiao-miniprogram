@@ -1,9 +1,5 @@
 //加载不知道有没有用的方法
-
-
-
 // 加载未知数方法结尾
-
 //index.js
 Page({
   data: {
@@ -28,7 +24,8 @@ Page({
     tabs: [],
     key: '',
     keyword: '',
-    tips: {}
+    tips: {},
+    itemTitle: '选择企业',
   },
   // 获取token
   getToken() {
@@ -150,18 +147,17 @@ Page({
   },
   // 打印二维码
   getWeAppQRDecode() {
-    wx.navigateTo({
-      url: '/pages/printer/index?url=' + "0",
-    })
     wx.openBluetoothAdapter({
-
       success: function(res) {
-
         console.log('---初始化蓝牙适配器状态---');
         console.log(res);
         // this.getBluetoothAdapterState();
       }
     })
+    wx.navigateTo({
+      url: '/pages/printer/index',
+    })
+  
   },
   //蓝牙测试乱七八糟的东西，先试试
 

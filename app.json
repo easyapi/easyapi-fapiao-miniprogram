@@ -1,10 +1,10 @@
 {
   "pages": [
-    "pages/login/login",
     "pages/index/index",
-    "pages/webViewPage/webViewPage",
+    "pages/login/login/login",
+    "pages/about/about",
     "pages/printer/index",
-    "pages/about/about"
+    "pages/webViewPage/webViewPage"
   ],
   "window": {
     "navigationBarBackgroundColor": "#fff",
@@ -17,17 +17,18 @@
   "tabBar": {
     "list": [
       {
-        "pagePath": "pages/index/index",
-        "iconPath": "images/tabbar/tabbar-share.png",
-        "selectedIconPath": "images/tabbar/tabbar-share-active.png",
-        "text": "开票"
-      },
-      {
         "pagePath": "pages/about/about",
         "iconPath": "images/tabbar/tabbar-my.png",
         "selectedIconPath": "images/tabbar/tabbar-my-active.png",
         "text": "关于"
+      },
+      {
+        "pagePath": "pages/index/index",
+        "iconPath": "images/tabbar/tabbar-share.png",
+        "selectedIconPath": "images/tabbar/tabbar-share-active.png",
+        "text": "开票"
       }
+      
     ],
     "backgroundColor": "#fff",
     "selectedColor": "#e8370d"

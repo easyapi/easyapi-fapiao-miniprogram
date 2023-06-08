@@ -1,4 +1,21 @@
 /**index.wxss**/
+.van-dropdown-menu{
+  width: 100% !important;
+  height: 30px !important;
+  font-size: 8px !important;
+  text-align: left !important;
+  margin-left: -140px !important;
+}
+.van-ellipsis{
+  font-size: 12px !important;
+}
+.van-dropdown-menu-item {
+    align-items: center;
+    display: flex;
+    flex: 1;
+    justify-content: center;
+    min-width: 0;
+}
 .floor-title_name {
   line-height:160px;
   color:#0B0B0B;

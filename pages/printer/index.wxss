@@ -38,7 +38,7 @@
   font-size: 22rpx;
 }
 
-.connected-info {}
+/* .connected-info {} */
 
 .input-area {
   background: #fff;

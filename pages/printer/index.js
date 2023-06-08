@@ -1,6 +1,6 @@
 const LAST_CONNECTED_DEVICE = 'last_connected_device'
 const PrinterJobs = require('../../printer/printerjobs')
-const printerUtil = require('../../printer/printerutil')
+const printerUtil = require('../../printer/printerutil')  
 
 function inArray(arr, key, val) {
   for (let i = 0; i < arr.length; i++) {
@@ -34,7 +34,7 @@ function str2ab(str) {
 
 Page({
   data: {
-    devices: [],
+    devices: [{},{}],
     connected: false,
     chs: []
   },

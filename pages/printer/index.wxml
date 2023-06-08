@@ -1,15 +1,15 @@
 <wxs module="utils">
-  module.exports.max = function(n1, n2) {
-  return Math.max(n1, n2)
+  module.exports.max = function (n1, n2) {
+    return Math.max(n1, n2)
   }
-  module.exports.len = function(arr) {
-  arr = arr || [];
-  return arr.length;
+  module.exports.len = function (arr) {
+    arr = arr || [];
+    return arr.length;
   }
 </wxs>
 <view class="container">
   <view class="page-section">
-    <view class="devices-summary">已发现 {{devices.length}} 个外围设备：</view>
+    <view class="devices-summary">已发现{{devices.length}} 个外围设备：</view>
     <scroll-view class="device-list" scroll-y scroll-with-animation>
       <view wx:for="{{devices}}" wx:key="index" data-device-id="{{item.deviceId}}" data-name="{{item.name || item.localName}}" bindtap="createBLEConnection" class="device-item" hover-class="device-item-hover">
         <view style="font-size: 16px; color: #333;">{{item.name}}</view>

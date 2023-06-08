@@ -1,0 +1,7 @@
+{
+    "usingComponents": {
+        "yzs-button": "@vant/weapp/button/index",
+        "van-rate": "@vant/weapp/rate/index"
+    },
+    "enablePullDownRefresh": true
+}
