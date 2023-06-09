@@ -1,10 +1,11 @@
 {
   "pages": [
     "pages/index/index",
+    "pages/login/login/login",
     "pages/my/index/index",
     "pages/my/setting/index/index",
     "pages/about/about",
-    "pages/login/login/login",
+    "pages/contents/contents",
     "pages/printer/index",
     "pages/webViewPage/webViewPage"
   ],

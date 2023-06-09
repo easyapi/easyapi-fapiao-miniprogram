@@ -1,4 +1,3 @@
-
 <view class='container'>
   <scroll-view class='order-scroll' scroll-y bindscrolltolower="getProductList">
     <view class="text-align-center">

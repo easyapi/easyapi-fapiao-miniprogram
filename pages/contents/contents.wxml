@@ -1,0 +1,6 @@
+<view class='container'>
+  <view></view>
+  <view class='operation-btn'>
+    <van-button size="large" custom-class="btn-color" bindtap='getWeAppQRDecode'>打印二维码发票</van-button>
+  </view>
+</view>

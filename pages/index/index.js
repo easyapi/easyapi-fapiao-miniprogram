@@ -10,7 +10,7 @@ Page({
     inputVal: '',
     name: '',
     QRcode: '',
-    items: [1, 2, 3],
+    items: [1, 2],
     header: '',
     product: [],
     leftImg: {},
@@ -18,13 +18,14 @@ Page({
     rightImg: {},
     no: '',
     rate: '',
-    tabs: [],
+    tabs: [{value:'',name:'餐饮服务'},{value:'0',name:'酒水'}],
     key: '',
     keyword: '',
     tips: {},
     itemTitle: '选择企业',
   },
   // 获取token
+  
   getToken() {
     var _that = this;
     wx.request({
@@ -105,6 +106,10 @@ Page({
         number: 1
       }]
     };
+        wx.navigateTo({
+            url: '/pages/contents/contents',
+          }),
+      
     wx.request({
       url: 'https://fapiao-api.easyapi.com/scan/print',
       header: {

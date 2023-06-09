@@ -3,7 +3,8 @@
   "projectname": "easyapi-fapiao-miniprogram",
   "setting": {
     "compileHotReLoad": true,
-    "ignoreDevUnusedFiles": false
+    "ignoreDevUnusedFiles": false,
+    "urlCheck": false
   },
   "condition": {
     "miniprogram": {

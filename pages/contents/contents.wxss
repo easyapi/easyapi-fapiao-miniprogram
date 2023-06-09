@@ -1,0 +1,9 @@
+.operation-btn {
+  margin: 15px;
+}
+
+.btn-color {
+  background-color: #18C1D6 !important;
+  color: #fff !important;
+  border-radius: 25px;
+}
