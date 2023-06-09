@@ -11,3 +11,8 @@
   "integrity" "sha512-RMc0Ga914XFwspw2WuOMU8bOHlIkua8X1DoQ/KPnGQzjwT1uEL4S7W186EmaHF1wN2krB9BVd0LdRRt39dGh6Q=="
   "resolved" "https://registry.npmmirror.com/vant-weapp/-/vant-weapp-0.5.29.tgz"
   "version" "0.5.29"
+
+"wx-qr@^0.1.2":
+  "integrity" "sha512-U9c6qtQdHYIVnv3joK7FJK1yn3Ia6JTUUaUTTl2RjSxst3NxGr21ytJQ9UngTIIn87g19udFiUHVaQvxmJ4uIQ=="
+  "resolved" "https://registry.npmjs.org/wx-qr/-/wx-qr-0.1.2.tgz"
+  "version" "0.1.2"

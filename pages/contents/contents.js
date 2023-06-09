@@ -8,8 +8,11 @@ Page({
    * 页面的初始数据
    */
   data: {
-
+    qrTxt: 'https://github.com/liuxdi/wx-qr',
+    money:'',
+    content:''
   },
+  
   //获取token
   
   getToken() {
