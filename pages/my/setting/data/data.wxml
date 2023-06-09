@@ -1,0 +1,24 @@
+<view class='container'>
+
+<van-cell-group>
+  <button class="avatar-wrapper" open-type="chooseAvatar" bindchooseavatar="getImage">
+    <van-cell class="header-img" title="头像" center>
+      <view slot="right-icon" class='flex-r info'>
+        <image src='{{userInfo.photo}}'></image>
+      </view>
+    </van-cell>
+  </button>
+  <van-field id="nickNameField" name="remark" label="昵称">
+    <view slot="input">
+      <input class="field-input" type="nickname" value="{{ userInfo.nickname||''}}" placeholder="请输入昵称" bind:change="change" />
+    </view>
+  </van-field>
+
+  <van-cell title="性别" is-link value="{{userInfo.male?'男':'女'}}" bindtap="choseGender" />
+</van-cell-group>
+<!-- 选择性别 -->
+<van-popup show="{{ show }}" bind:close="onClose" position="bottom">
+  <van-picker show-toolbar columns="{{ gender }}" bind:cancel="onCancel" bind:confirm="onConfirm" />
+</van-popup>
+<van-uploader max-count="1" bind:after-read="afterRead" bindtap="getKeyAndToken"></van-uploader>
+</view>

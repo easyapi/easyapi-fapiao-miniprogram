@@ -1,0 +1,98 @@
+.container {
+  padding: 20rpx 0;
+  max-height: calc(100% - 40rpx);
+}
+
+.avatar-wrapper {
+  width: 100vw !important;
+  height: auto !important;
+  text-align: left;
+  padding: 0 !important;
+  margin: 0 !important;
+}
+
+.cell-group--padding {
+  padding: 20rpx 0;
+}
+
+.button-group {
+  margin-top: 30px;
+}
+
+.info {
+  align-items: center;
+}
+
+.btn {
+  margin-top: 20rpx;
+  display: flex;
+  justify-content: center;
+  padding-bottom: 20rpx;
+}
+
+.confirm {
+  margin-left: 80rpx;
+}
+
+.info image {
+  width: 80rpx;
+  height: 80rpx;
+  border-radius: 50%;
+  background-color: #ddd;
+}
+
+.info .custom-icon {
+  line-height: 24px;
+  font-size: 16px;
+  color: #999;
+  text-rendering: auto;
+  -webkit-font-smoothing: antialiased;
+  margin-bottom: -3px;
+  margin-left: 5px;
+}
+
+.login_btn {
+  color: #fff;
+  width: 200px;
+}
+
+.van-cell {
+  width: 100vw !important;
+
+}
+
+.van-cell__title {
+  font-size: 16px !important;
+  color: black !important;
+}
+
+.van-cell .custom-class {
+  width: 0 !important;
+
+}
+
+.van-field__control {
+  text-align: right !important;
+  font-size: 16px !important
+}
+
+.van-field__label {
+  color: black !important;
+  font-size: 16px !important;
+}
+
+.van-uploader {
+  position: fixed;
+  left: -100px !important;
+}
+
+.van-field__control--custom {
+  display: flex;
+  justify-content: flex-end !important;
+}
+
+.field-input {
+  min-height: var(--cell-line-height, 24px);
+  align-items: center;
+
+}

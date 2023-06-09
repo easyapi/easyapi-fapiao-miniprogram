@@ -1,4 +1,8 @@
-const request = getApp().sendRequest.request;
+
+const {
+  request
+} = require('../../../utils/request')
+
 import Dialog from '../../../miniprogram_npm/@vant/weapp/dialog/dialog';
 
 const {
@@ -81,7 +85,7 @@ Page({
         if (res.code) {
           let code = res.code;
           // 发起网络请求
-          request(`${baseUrl}/weixin/miniprogram/${getApp().globalData.maAppId}/sessionInfo/` + code, 'GET').then(res => {
+          request(`${baseUrl}/weixin/miniprogram/${getApp().globalData.appid}/sessionInfo/` + code, 'GET').then(res => {
             if (res.data.code === 1) {
               let openid = res.data.content.openid;
               let sessionKey = res.data.content.session_key;
@@ -119,7 +123,7 @@ Page({
         let iv = e.detail.iv
         let encryptedData = e.detail.encryptedData;
         let sessionkey = _that.data.sessionKey;
-        request(`${baseUrl}/weixin/miniprogram/${getApp().globalData.maAppId}/phoneNoInfo`, 'GET', {
+        request(`${baseUrl}/weixin/miniprogram/${getApp().globalData.appid}/phoneNoInfo`, 'GET', {
           encryptedData: encryptedData,
           ivStr: iv,
           sessionKey: sessionkey
@@ -150,7 +154,7 @@ Page({
       providerId: "miniprogram",
       mobile: userPhone.purePhoneNumber,
       inviter: getApp().globalData.inviter,
-      appId: getApp().globalData.maAppId,
+      appId: getApp().globalData.appid,
       app: getApp().globalData.projectName
     }
     thirdPartyRegister(obj).then(res => {
@@ -178,7 +182,8 @@ Page({
   /**
    * 获取数据表格的小区recordId
    */
-  getTableLocationList(userLocations) {},
+  getTableLocationList(userLocations) {
+  },
 
   /**
    * 获取用户信息

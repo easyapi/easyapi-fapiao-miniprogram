@@ -24,10 +24,10 @@
         "text": "开票"
       },
       {
-        "pagePath": "pages/about/about",
+        "pagePath": "pages/my/index/index",
         "iconPath": "images/tabbar/tabbar-my.png",
         "selectedIconPath": "images/tabbar/tabbar-my-active.png",
-        "text": "关于"
+        "text": "我的"
       }
     ],
     "backgroundColor": "#fff",

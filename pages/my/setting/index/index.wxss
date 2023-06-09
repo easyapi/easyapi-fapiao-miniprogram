@@ -1,0 +1,12 @@
+.container {
+  padding: 20rpx 0;
+  background: #f4f4f4;
+}
+
+.cell-group--padding {
+  padding: 20rpx 0;
+}
+
+.button-group {
+  margin-top: 30px;
+}

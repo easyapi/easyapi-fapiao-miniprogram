@@ -1,1 +1,25 @@
-<text>pages/my/index/index.wxml</text>
+<view class="box">
+  <!-- 状态栏高度 -->
+  <view style="height: {{statusBarHeight}}px"></view>
+  <!-- 标题栏高度 -->
+  <view class='nav fz-15' style="height: {{toBarHeight}}px;">
+    <text style="height: {{toBarHeight}}px;line-height: {{toBarHeight}}px;color:#ffffff">{{cusTitle}}
+    </text>
+  </view>
+</view>
+<view class="container">
+  <view class="user" style="margin-top: {{statusBarHeight+toBarHeight}}px;">
+    <view class="user-info flex-r" bindtap="gotoUser">
+      <image src="{{user ? user.photo: logo}}"></image>
+      <view class="flex-c flex-1">
+        <view class="user-info__name" bindtap="jumpLogin">{{user ? user.nickname : "未登录"}}</view>
+      </view>
+    </view>
+  </view>
+  <view class="function">
+    <van-cell title="设置" is-link data-url='/pages/my/setting/index/index' bindtap='jumpPage'>
+      <image slot="icon" src="/images/my/menu/message.png" mode="widthFix" style="width:14px;margin-top: 5px;margin-right: 20rpx;"></image>
+      1111111
+    </van-cell>
+  </view>
+</view>
