@@ -4,6 +4,7 @@
     "pages/login/login/login",
     "pages/my/index/index",
     "pages/my/setting/index/index",
+    "pages/my/setting/printer/index",
     "pages/about/about",
     "pages/contents/contents",
     "pages/printer/index",
