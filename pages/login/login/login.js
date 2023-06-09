@@ -49,7 +49,7 @@ Page({
     }
     login(this.data.userInfo).then(res => {
       if(res.data.code === 1){
-        wx.setStorageSync('token', res.data.id_token)
+        wx.setStorageSync('Authorization', res.data.id_token)
         wx.showToast({
           title: res.data.message,
           success: (res) => {
