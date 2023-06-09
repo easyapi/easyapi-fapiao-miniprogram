@@ -24,4 +24,7 @@
       <image slot="icon" src="/images/my/menu/message.png" mode="widthFix" style="width:14px;margin-top: 5px;margin-right: 20rpx;"></image>
     </van-cell>
   </view>
+  <view class="layout" wx:if="{{ user }}">
+    <van-button type="danger" size="large" bindtap="layout" >退出登录</van-button>
+  </view>
 </view>

@@ -39,6 +39,18 @@ Page({
       })
     }
   },
+
+  /**
+   * 退出登录
+   */
+  layout(){
+    wx.removeStorageSync('Authorization')
+    wx.removeStorageSync('user')
+    wx.navigateTo({
+      url: '/pages/login/login/login',
+    })
+  },
+
   /**
    * 生命周期函数--监听页面加载
    */
