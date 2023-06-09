@@ -1,23 +1,24 @@
 <view class='container'>
-  <view class='login_autn pd-lr-15 box-sizing flex-c'>
-    <image src='{{logo}}'></image>
-    <text class='fz-20 fz-w'>{{projectName}}</text>
-    <view></view>
+  <view class='header'>
+    <image src='../../../images/logo.png' />
+    <text class='fz-20 fz-w'>开票小程序</text>
   </view>
-  <view class="pd-lr-15 login_gain">
-    <view class='hint fz-14 fz-w'>{{projectName}}申请获取您的公开信息</view>
-    <view class="fz-14 hint">授权信息已关联你的{{projectName}}账号</view>
-  </view>
-  <view class='login_btn pd-lr-15'>
-    <button class="btn--bg" lang="zh_CN" open-type="{{getPhoneNumber}}" type="primary" bindgetphonenumber="getPhoneNumber" bindtap="authorization">微信账号一键登录</button>
-  </view>
-  <view class="login_btn pd-lr-15 box-sizing flex-a">
-    <label catchtap='checkedTap'>
-      <checkbox value="agree" checked="{{checked}}">
-        <text class="fz-15">登录即同意</text><text class="fz-15 fz-cl-yellow" catchtap="gotoAgreement">《用户使用协议》</text>和<text class="fz-15 fz-cl-yellow" catchtap="gotoPrivacy">《隐私协议》</text>
-      </checkbox>
-    </label>
-  </view>
-  <van-dialog id="van-dialog" />
-
+  <van-cell-group>
+    <van-field
+      value="{{ userInfo.username }}"
+      label="手机号"
+      placeholder="请输入用户名"
+      border="{{ false }}"
+      bind:input="inputUsername"
+    />
+    <van-field
+      value="{{ userInfo.password }}"
+      password
+      label="密码"
+      placeholder="请输入用户名"
+      border="{{ false }}"
+      bind:input="inputPassword"
+    />
+  </van-cell-group>
+  <van-button type="primary" size="large" bindtap="login" >登录</van-button>
 </view>
