@@ -1,8 +1,8 @@
 <view class='container'>
-  <view>蓝牙打印机</view>
+  <view class="title">蓝牙打印机</view>
   <van-cell-group>
-    <van-cell title="蓝牙打印机" is-link url="" />
+    <van-cell title="蓝牙打印机" is-link data-url='/pages/my/setting/printer/index' value="未连接" bindtap='jumpPage' />
   </van-cell-group>
-<view>打印设置</view>
-<van-cell title="小票宽度" is-link url="" />
+<view class="title">打印设置</view>
+<van-cell title="小票宽度"  url="" value="58" />
 </view>

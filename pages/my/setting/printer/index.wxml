@@ -1,0 +1,9 @@
+<view class='container'>
+  <view class="title">附近设备</view>
+  <van-cell-group>
+    <van-cell wx:for="{{devices}}" wx:key="item" center title="{{item.deviceId}}"  label="{{label}}">
+      <van-button color="#59BFD3" size="small">链接</van-button>
+    </van-cell>
+  </van-cell-group>
+
+</view>

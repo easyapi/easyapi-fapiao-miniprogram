@@ -13,6 +13,12 @@ Page({
     loginSuccess: getApp().globalData.loginSuccess
   },
 
+  jumpPage(e) {
+    wx.navigateTo({
+      url: e.currentTarget.dataset.url + '?id=' + e.currentTarget.dataset.id,
+    })
+  },
+
   logout() {
     Dialog.confirm({
         title: '您确认退出吗？',
