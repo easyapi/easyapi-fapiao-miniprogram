@@ -1,7 +1,7 @@
 {
- "navigationBarBackgroundColor": "#fff",
-"navigationBarTextStyle": "black",
-"navigationBarTitleText": "关于",
-"navigationStyle": "default",
-"usingComponents": {}
+  "navigationBarBackgroundColor": "#fff",
+  "navigationBarTextStyle": "black",
+  "navigationBarTitleText": "关于",
+  "navigationStyle": "default",
+  "usingComponents": {}
 }

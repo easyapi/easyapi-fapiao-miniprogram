@@ -1,6 +1,3 @@
-//加载不知道有没有用的方法
-// 加载未知数方法结尾
-//index.js
 Page({
   data: {
     // 不知道有没有用的东西
@@ -38,7 +35,7 @@ Page({
         rememberMe: true
       },
       method: 'POST',
-      success: function(res) {
+      success: function (res) {
         _that.setData({
           header: res.data.id_token
         })
@@ -59,7 +56,7 @@ Page({
       },
       data: {},
       method: 'GET',
-      success: function(res) {
+      success: function (res) {
         console.log(res.data.content);
         if (res.statusCode === 200) {
           _that.setData({
@@ -116,7 +113,7 @@ Page({
       },
       data: obj,
       method: 'POST',
-      success: function(res) {
+      success: function (res) {
         if (res.statusCode === 200) {
           console.log(res.data.content);
           wx.request({
@@ -132,7 +129,7 @@ Page({
               text: "https://fapiao-scan.easyapi.com/mobile.html?code=" + res.data.content
             },
             method: 'POST',
-            success: function(res) {
+            success: function (res) {
               if (res.statusCode === 200) {
                 console.log(res.data.content);
                 wx.navigateTo({
@@ -148,7 +145,7 @@ Page({
   // 打印二维码
   getWeAppQRDecode() {
     wx.openBluetoothAdapter({
-      success: function(res) {
+      success: function (res) {
         console.log('---初始化蓝牙适配器状态---');
         console.log(res);
         // this.getBluetoothAdapterState();
@@ -157,57 +154,57 @@ Page({
     wx.navigateTo({
       url: '/pages/printer/index',
     })
-  
+
   },
   //蓝牙测试乱七八糟的东西，先试试
 
   /**
    * 生命周期函数--监听页面加载
    */
-  onLoad: function(options) {
+  onLoad: function (options) {
     var _that = this
     _that.getToken();
   },
   /**
    * 生命周期函数--监听页面初次渲染完成
    */
-  onReady: function() {
+  onReady: function () {
 
   },
   /**
    * 生命周期函数--监听页面显示
    */
-  onShow: function() {
+  onShow: function () {
 
   },
   /**
    * 生命周期函数--监听页面隐藏
    */
-  onHide: function() {
+  onHide: function () {
 
   },
   /**
    * 生命周期函数--监听页面卸载
    */
-  onUnload: function() {
+  onUnload: function () {
     this.closeBluetoothAdapter()
   },
   /**
    * 页面相关事件处理函数--监听用户下拉动作
    */
-  onPullDownRefresh: function() {
+  onPullDownRefresh: function () {
 
   },
 
   /**
    * 页面上拉触底事件的处理函数
    */
-  onReachBottom: function() {
+  onReachBottom: function () {
 
   },
   /**
    * 用户点击右上角分享
    */
-  onShareAppMessage: function() {},
+  onShareAppMessage: function () {},
 
 })

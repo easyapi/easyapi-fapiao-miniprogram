@@ -1,6 +1,6 @@
 const LAST_CONNECTED_DEVICE = 'last_connected_device'
 const PrinterJobs = require('../../printer/printerjobs')
-const printerUtil = require('../../printer/printerutil')  
+const printerUtil = require('../../printer/printerutil')
 
 function inArray(arr, key, val) {
   for (let i = 0; i < arr.length; i++) {
@@ -34,7 +34,7 @@ function str2ab(str) {
 
 Page({
   data: {
-    devices: [{},{}],
+    devices: [{}, {}],
     connected: false,
     chs: []
   },
@@ -67,8 +67,7 @@ Page({
             if (res.available) {
               // 取消监听，否则stopBluetoothDevicesDiscovery后仍会继续触发onBluetoothAdapterStateChange，
               // 导致再次调用startBluetoothDevicesDiscovery
-              wx.onBluetoothAdapterStateChange(() => {
-              });
+              wx.onBluetoothAdapterStateChange(() => {});
               this.startBluetoothDevicesDiscovery()
             }
           })
@@ -320,8 +319,7 @@ Page({
             console.log('onBluetoothAdapterStateChange', res)
             if (res.available) {
               // 取消监听
-              wx.onBluetoothAdapterStateChange(() => {
-              });
+              wx.onBluetoothAdapterStateChange(() => {});
               this._createBLEConnection(deviceId, name)
             }
           })

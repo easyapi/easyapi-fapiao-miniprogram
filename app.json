@@ -4,7 +4,8 @@
     "pages/login/login/login",
     "pages/about/about",
     "pages/printer/index",
-    "pages/webViewPage/webViewPage"
+    "pages/webViewPage/webViewPage",
+    "pages/my/index/index"
   ],
   "window": {
     "navigationBarBackgroundColor": "#fff",
@@ -17,16 +18,16 @@
   "tabBar": {
     "list": [
       {
-        "pagePath": "pages/about/about",
-        "iconPath": "images/tabbar/tabbar-my.png",
-        "selectedIconPath": "images/tabbar/tabbar-my-active.png",
-        "text": "关于"
-      },
-      {
         "pagePath": "pages/index/index",
         "iconPath": "images/tabbar/tabbar-share.png",
         "selectedIconPath": "images/tabbar/tabbar-share-active.png",
         "text": "开票"
+      },
+      {
+        "pagePath": "pages/about/about",
+        "iconPath": "images/tabbar/tabbar-my.png",
+        "selectedIconPath": "images/tabbar/tabbar-my-active.png",
+        "text": "关于"
       }
     ],
     "backgroundColor": "#fff",
@@ -57,7 +58,6 @@
     "van-divider": "@vant/weapp/divider/index",
     "van-radio": "@vant/weapp/radio/index",
     "van-radio-group": "@vant/weapp/radio-group/index",
-    "van-submit-bar": "@vant/weapp/submit-bar/index",
     "van-tab": "@vant/weapp/tab/index",
     "van-dialog": "@vant/weapp/dialog/index",
     "van-tabs": "@vant/weapp/tabs/index",
@@ -72,8 +72,6 @@
     "van-dropdown-menu": "@vant/weapp/dropdown-menu/index",
     "van-dropdown-item": "@vant/weapp/dropdown-item/index",
     "van-image": "@vant/weapp/image/index",
-    "van-empty": "@vant/weapp/empty/index",
-    "van-datetime-picker": "@vant/weapp/datetime-picker/index",
-    "van-uploader": "@vant/weapp/uploader/index"
+    "van-empty": "@vant/weapp/empty/index"
   }
 }

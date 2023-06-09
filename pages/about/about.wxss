@@ -1,13 +1,14 @@
-/* pages/about/about.wxss */
-.title{
-  width:100%;
+.title {
+  width: 100%;
   justify-content: space-around;
-  margin:20px 0;
+  margin: 20px 0;
 }
-.text-tips{
-  margin:20px;
+
+.text-tips {
+  margin: 20px;
 
 }
-.text-area{
-  padding:0 20px;
+
+.text-area {
+  padding: 0 20px;
 }

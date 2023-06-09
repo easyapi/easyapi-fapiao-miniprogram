@@ -178,8 +178,7 @@ Page({
   /**
    * 获取数据表格的小区recordId
    */
-  getTableLocationList(userLocations) {
-  },
+  getTableLocationList(userLocations) {},
 
   /**
    * 获取用户信息
