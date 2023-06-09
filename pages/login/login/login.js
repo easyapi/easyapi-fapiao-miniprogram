@@ -1,4 +1,4 @@
-const { login } = require('../../../api/user')
+const { login, getAccount } = require('../../../api/account')
 
 Page({
   /**
@@ -50,18 +50,28 @@ Page({
     login(this.data.userInfo).then(res => {
       if(res.data.code === 1){
         wx.setStorageSync('Authorization', res.data.id_token)
+        this.getAccount()
         wx.showToast({
           title: res.data.message,
-          success: (res) => {
-            wx.redirectTo({
-            url: '/pages/index/index',
-          })
-         },
        })  
       }else{
         wx.showToast({
           title: res.data.message,
           icon: 'error'
+        })
+      }
+    })
+  },
+
+  /**
+   * 获取用户信息
+   */
+  getAccount(){
+    getAccount().then(res => {
+      if(res.data.code === 1){
+        wx.setStorageSync('user', res.data.content)
+        wx.redirectTo({
+          url: '/pages/index/index',
         })
       }
     })

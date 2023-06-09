@@ -18,7 +18,7 @@ module.exports.request = async function (url, method, data, header) {
   if (url.indexOf(baseUrl) > -1) {
     let authorization = wx.getStorageSync('Authorization');
     if (authorization) {
-      requestHeader['Authorization'] = authorization
+      requestHeader['Authorization'] = `Bearer ${authorization}`
     }
   }
   var promise = new Promise(function (resolve, reject) {

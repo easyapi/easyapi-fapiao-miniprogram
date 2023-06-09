@@ -18,8 +18,8 @@ export const updateAccount = (data) => {
 }
 
 /**
- * 
+ * 登录
  */
 export const login = (data) => {
-  return request(`${baseUrl}/account/login`, 'POST', data);
+  return request(`${baseUrl}/authenticate`, 'POST', data);
 }

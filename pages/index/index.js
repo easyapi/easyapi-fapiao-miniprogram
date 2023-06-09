@@ -71,7 +71,6 @@ Page({
   },
   // 点击获取点击类别的信息
   getItemImfor(e) {
-    console.log(e);
     this.setData({
       no: e.target.dataset.item.taxCode.no,
       rate: e.target.dataset.item.taxCode.rate,

@@ -1,11 +1,3 @@
-const {
-  request
-} = require('../../../utils/request')
-
-const {
-  baseUrl
-} = require('../../../utils/request')
-
 Page({
 
   /**
@@ -17,62 +9,28 @@ Page({
     toBarHeight: 44, //标题栏高度：安卓：48px，iOS：44px;单位必需跟胶囊按钮一致，用p
     cusTitle: "个人中心",
     user: null,
-    countDate: {}
   },
+
   /**
-   * 
+   * 前往个人中心
    */
-  formSubmit(e) {
-    if (e.detail.formId != 'the formId is a mock one') {
-      let params = {
-        wxFormId: e.detail.formId,
-      }
-      getWxForm(params).then(res => {})
-    }
-  },
   gotoUser() {
     wx.navigateTo({
       url: '/pages/my/setting/data/data',
     })
   },
+
   /**
-   * 
+   * 前往页面
    */
   jumpPage(e) {
     wx.navigateTo({
       url: e.currentTarget.dataset.url + '?id=' + e.currentTarget.dataset.id,
     })
   },
+
   /**
-   * 
-   */
-  jumpPurse(e) {
-    if (this.data.user) {
-      wx.navigateTo({
-        url: e.currentTarget.dataset.url,
-      })
-    } else {
-      wx.reLaunch({
-        url: '/pages/login/login/login',
-      })
-    }
-  },
-  /**
-   * 
-   */
-  jumpYue(e) {
-    if (this.data.user) {
-      wx.navigateTo({
-        url: e.currentTarget.dataset.url,
-      })
-    } else {
-      wx.reLaunch({
-        url: '/pages/login/login/login',
-      })
-    }
-  },
-  /**
-   * 
+   * 前往登录
    */
   jumpLogin() {
     if (!wx.getStorageSync("user")) {
@@ -103,17 +61,15 @@ Page({
     this.setData({
       statusBarHeight: sysinfo.statusBarHeight
     })
+    // 获取用户信息
     let user = wx.getStorageSync("user");
-
     if (user) {
       this.setData({
         user: user
       })
-      this.getCount();
     } else {
       this.setData({
         user: null,
-        countDate: {}
       })
     }
   },
