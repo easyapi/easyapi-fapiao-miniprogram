@@ -12,7 +12,7 @@
 }
 
 .user-info {
-  margin-top: 80rpx;
+  margin-top: 60rpx;
 }
 
 .user-info>image {
@@ -115,9 +115,8 @@
   font-size: 12rpx;
 }
 
-.function,
-.banner {
-  padding: 10rpx 30rpx;
+.function {
+  margin-top: -80rpx;
 }
 
 .function .first {
@@ -130,12 +129,6 @@
 
 .van-cell_title {
   font-size: 28rpx;
-}
-
-.banner image {
-  height: 160rpx;
-  width: 100%;
-  background: #fff;
 }
 
 .icon-daifukuan,
@@ -183,7 +176,8 @@
   border: 1rpx solid rgba(255, 255, 255, 0.25);
   background-color: rgba(0, 0, 0, 0.25);
 }
+
 .layout{
-  margin-top: 30rpx;
+  margin-top: 40rpx;
   padding: 0 30rpx;
 }

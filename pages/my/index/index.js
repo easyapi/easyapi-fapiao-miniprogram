@@ -1,3 +1,5 @@
+import Dialog from '../../../miniprogram_npm/@vant/weapp/dialog/dialog';
+
 Page({
 
   /**
@@ -44,11 +46,18 @@ Page({
    * 退出登录
    */
   layout(){
-    wx.removeStorageSync('Authorization')
-    wx.removeStorageSync('user')
-    wx.navigateTo({
-      url: '/pages/login/login/login',
+    Dialog.confirm({
+      title: '温馨提示',
+      message: '您确认退出登陆吗',
     })
+    .then(() => {
+      wx.removeStorageSync('Authorization')
+      wx.removeStorageSync('user')
+      wx.navigateTo({
+        url: '/pages/login/login/login',
+      })
+    })
+
   },
 
   /**
