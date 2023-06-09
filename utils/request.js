@@ -1,6 +1,6 @@
 const tableUrl = 'https://table-api.easyapi.com'
 const docUrl = 'https://doc-api.easyapi.com'
-const baseUrl = 'https://api.anjiecommunity.com';
+const baseUrl = 'https://fapiao-api-test.easyapi.com';
 
 module.exports.baseUrl = baseUrl
 module.exports.tableUrl = tableUrl

@@ -17,9 +17,11 @@
     </view>
   </view>
   <view class="function">
-    <van-cell title="设置" is-link data-url='/pages/my/setting/index/index' bindtap='jumpPage'>
+    <van-cell title="打印机设置" is-link data-url='/pages/my/setting/index/index' bindtap='jumpPage'>
       <image slot="icon" src="/images/my/menu/message.png" mode="widthFix" style="width:14px;margin-top: 5px;margin-right: 20rpx;"></image>
-      1111111
+    </van-cell>
+    <van-cell title="关于我们" is-link data-url='/pages/about/about' bindtap='jumpPage'>
+      <image slot="icon" src="/images/my/menu/message.png" mode="widthFix" style="width:14px;margin-top: 5px;margin-right: 20rpx;"></image>
     </van-cell>
   </view>
 </view>

@@ -1,8 +1,4 @@
-<van-dropdown-menu>
-  <van-dropdown-item value="{{ value1 }}" title="{{ itemTitle }}" id="gender" data-type="gender">
-    <van-tree-select items="{{ items }}" main-active-index="{{ mainActiveIndex }}" active-id="{{ activeId }}" bind:click-nav="onClickNav" bind:click-item="onClickItem" />
-  </van-dropdown-item>
-</van-dropdown-menu>
+
 <view class='container'>
   <scroll-view class='order-scroll' scroll-y bindscrolltolower="getProductList">
     <view class="text-align-center">
