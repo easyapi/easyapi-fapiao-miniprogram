@@ -9,12 +9,12 @@ Page({
    */
   data: {
     qrTxt: 'https://github.com/liuxdi/wx-qr',
-    money:'',
-    content:''
+    money: '',
+    content: '',
   },
-  
+
   //获取token
-  
+
   getToken() {
     var _that = this;
     wx.request({
@@ -76,13 +76,72 @@ Page({
     this.setData({
       inputVal: e.detail.value
     });
-    console.log(this.data.inputVal);
+  },
+
+  seeQRcode() {
+    var _that = this;
+    var taxRate = Number(_that.data.rate) / 100;
+    console.log(taxRate);
+    var obj = {
+      shopNo: "",
+      remark: "",
+      items: [{
+        outOrderNo: "",
+        outOrderTime: "",
+        no: _that.data.no,
+        name: _that.data.name,
+        price: _that.data.inputVal,
+        taxRate: taxRate,
+        number: 1
+      }]
+    };
+
+    wx.request({
+      url: 'https://fapiao-api.easyapi.com/scan/print',
+      header: {
+        Authorization: 'Bearer ' + _that.data.header
+      },
+      data: obj,
+      method: 'POST',
+      success: function (res) {
+        if (res.statusCode === 200) {
+          console.log(res.data.content);
+          wx.request({
+            url: 'https://api2.easyapi.com/api/qrCode',
+            header: {
+              Authorization: 'Bearer ' + _that.data.header
+            },
+            data: {
+              appKey: "f4f33c07e706eaf1",
+              appSecret: "46ad7599c926f20c",
+              bg: "FFFFFF",
+              fg: "000000",
+              text: "https://fapiao-scan.easyapi.com/mobile.html?code=" + res.data.content
+            },
+            method: 'POST',
+            success: function (res) {
+              if (res.statusCode === 200) {
+                console.log(res.data.content);
+                wx.navigateTo({
+                  url: '/pages/webViewPage/webViewPage?url=' + res.data.content.img,
+                })
+              }
+            }
+          })
+        }
+      }
+    })
   },
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad(options) {
-
+    var pages = getCurrentPages()
+    var currentPage = pages[pages.length - 1] //获取当前页面的对象
+    var options = currentPage.options //如果要获取url中所带的参数可以查看options
+    this.setData({
+      money: options.id //这里的options.表示获取参数，contactid表示参数名称
+    })
   },
 
   /**

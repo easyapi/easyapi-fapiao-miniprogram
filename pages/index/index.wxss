@@ -30,24 +30,13 @@
   margin: 5rpx 0;
 }
 
-.van-button {
-  width: 88px;
-}
-
-.btn {
-  background: #E0E0E0;
-  text-align: center;
-  margin-right: 8rpx;
-  margin-left: 32rpx;
-  border-radius: 20px;
-}
-
 .type-title {
-  border: 1px dashed #999;
   padding: 10px;
-  color: #999;
+  color: #ffffff;
   margin: 5px 0;
+  margin-left: 32rpx;
   border-radius: 5px;
+  background-color: grey;
 }
 
 .btn-color {
@@ -61,9 +50,10 @@
 
 .operation-btn {
   margin: 15px;
+  color: #18C1D6 !important;
 }
 
 .border-color {
-  border: 1px solid #18C1D6 !important;
-  color: #18C1D6 !important;
+  background-color: #18C1D6;
+  color: #ffffff !important;
 }
