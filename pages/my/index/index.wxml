@@ -21,6 +21,9 @@
       <van-cell title="打印机设置" is-link data-url='/pages/my/setting/index/index' bindtap='jumpPage'>
         <image slot="icon" src="/images/my/menu/message.png" mode="widthFix" style="width:14px;margin-top: 5px;margin-right: 20rpx;"></image>
       </van-cell>
+      <van-cell title="切换企业" is-link data-url='/pages/my/enterprise/index' bindtap='jumpPage'>
+        <image slot="icon" src="/images/my/menu/message.png" mode="widthFix" style="width:14px;margin-top: 5px;margin-right: 20rpx;"></image>
+      </van-cell>
       <van-cell title="关于我们" is-link data-url='/pages/about/about' bindtap='jumpPage'>
         <image slot="icon" src="/images/my/menu/message.png" mode="widthFix" style="width:14px;margin-top: 5px;margin-right: 20rpx;"></image>
       </van-cell>

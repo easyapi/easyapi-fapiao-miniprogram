@@ -5,9 +5,9 @@
     "pages/my/index/index",
     "pages/my/setting/index/index",
     "pages/my/setting/printer/index",
+    "pages/my/enterprise/index",
     "pages/about/about",
     "pages/contents/contents",
-    "pages/printer/index",
     "pages/webViewPage/webViewPage"
   ],
   "window": {

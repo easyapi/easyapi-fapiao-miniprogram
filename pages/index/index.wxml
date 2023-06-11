@@ -5,7 +5,7 @@
     </view>
     <view>
       <view class='flex-r type-btn'>
-        <view class="text-align-center type-title {{active == index ? 'border-color':''}}" wx:for='{{tabs}}' wx:for-item="item" wx:for-index="index" wx:key="{{index}}" bindtap='getItemImfor' data-item="{{item}}" data-index="{{index}}">
+        <view class="text-align-center type-title {{ customCategoryId == item.customCategoryId ? 'border-color':'' }}" wx:for='{{tabs}}' wx:for-item="item" wx:for-index="index" wx:key="{{index}}" bindtap='getItemImfor' data-item="{{item}}">
           {{item.name}}
         </view>
       </view>

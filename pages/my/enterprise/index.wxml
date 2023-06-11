@@ -1,0 +1,12 @@
+<view class='container'>
+  <view class="title">当前企业</view>
+  <van-cell-group>
+    <van-cell  center title="{{nowShop.name}}" ></van-cell>
+  </van-cell-group>
+  <view class="title">我的企业</view>
+  <van-cell-group>
+    <van-cell wx:for="{{list}}" wx:key="item" center title="{{item.shop.name}}"  >
+      <van-button color="#59BFD3" size="small" data-item="{{item}}" bindtap="changeShop">切换</van-button>
+    </van-cell>
+  </van-cell-group>
+</view>

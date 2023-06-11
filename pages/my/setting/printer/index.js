@@ -125,38 +125,32 @@ connect(v){
    * 生命周期函数--监听页面显示
    */
   onShow() {
+    var that = this
     wx.openBluetoothAdapter({
       success: (res) => {
-        console.log('openBluetoothAdapter success', res)
         // 系统蓝牙模块打开。，并且蓝牙初始化成功后开始搜索蓝牙打印机
-
-          this.setData({
+          that.setData({
             devicesList:[]
           })
-          var that=this
           wx.startBluetoothDevicesDiscovery({
             success(res){
               //监听新设备
               wx.onBluetoothDeviceFound(function(res) {
+                console.log(res.devices, '搜索到的设备')
                 var devices = res.devices;
                 if(devices[0].name!=''){
-                  // this.list.push(devices[0])
-                  var list=that.data.devicesList
+                  var list= that.data.devicesList
                   list.push(devices[0])
                   that.setData({
-                    devicesList:list,
+                    devicesList: list,
                   })
                 }
-                console.log(that.data.devicesList)
-                // console.log('new device list has founded')
-                // console.log(ab2hex(devices[0].advertisData))
               })
             },
             fail(res){
               console.log('搜索蓝牙失败',res)
             }
           })
-
       },
       fail: (res) => {
         // 一般如果系统蓝牙模块启动失败，或者设备不支持蓝牙则会初始化失败
@@ -171,7 +165,7 @@ connect(v){
           wx.onBluetoothAdapterStateChange((res) => {
             console.log('onBluetoothAdapterStateChange', res)
             if (res.available) {
-              // 取消监听，否则stopBluetoothDevicesDiscovery后仍会继续触发                          onBluetoothAdapterStateChange，
+              // 取消监听，否则stopBluetoothDevicesDiscovery后仍会继续触发onBluetoothAdapterStateChange，
               // 导致再次调用startBluetoothDevicesDiscovery
               wx.onBluetoothAdapterStateChange(() => {})
               that.startBluetoothDevicesDiscovery()
@@ -179,19 +173,6 @@ connect(v){
           })
         }
       }
-
-      // success: function (res) {
-      //   console.log("初始化蓝牙成功")
-      //   //查找蓝牙设备
-      //   that.findBlue()
-      // },
-      // fail: function (res) {
-      //   wx.showModal({
-      //     content: '请开启手机蓝牙！',
-      //     showCancel: false,
-      //     success(res) {}
-      //   })
-      // }
     })
   },
 
