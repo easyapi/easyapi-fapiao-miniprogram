@@ -20,6 +20,7 @@
 .contentCon{
   font-size: 12px;
   color: #9A9A9A;
+  
 }
 
 .operation-btn {

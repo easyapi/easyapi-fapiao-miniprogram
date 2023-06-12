@@ -2,6 +2,7 @@ const tableUrl = 'https://table-api.easyapi.com'
 const docUrl = 'https://doc-api.easyapi.com'
 const baseUrl = 'https://fapiao-api.easyapi.com';
 
+
 module.exports.baseUrl = baseUrl
 module.exports.tableUrl = tableUrl
 module.exports.docUrl = docUrl

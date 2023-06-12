@@ -6,6 +6,7 @@ const {
 /**
  * 获取七牛key
  */
+
 export const getKey = (params) => {
   return request(`${baseUrl}/qiniu/key`, 'GET', params);
 }

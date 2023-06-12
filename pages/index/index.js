@@ -1,4 +1,6 @@
-const { getCustomCategory }  = require('../../api/enterprise')
+const {
+  getCustomCategory
+} = require('../../api/enterprise')
 
 Page({
   data: {
@@ -17,7 +19,7 @@ Page({
       size: 100,
     }
     getCustomCategory(params).then(res => {
-      if(res.data.code === 1) {
+      if (res.data.code === 1) {
         this.setData({
           tabs: res.data.content,
           customCategoryId: res.data.content[0].customCategoryId
@@ -36,6 +38,7 @@ Page({
 
   // 点击获取点击类别的信息
   getItemImfor(e) {
+    console.log(e)
     this.setData({
       no: e.target.dataset.item.taxCode.no,
       rate: e.target.dataset.item.taxCode.rate,
@@ -49,8 +52,14 @@ Page({
     this.setData({
       inputVal: e.detail.value
     });
-  },
 
+  },
+  seeQRcode() {
+    wx.navigateTo({
+      url: `/pages/contents/contents?id=${this.data.inputVal}&content=${this.data.name}`
+    })
+  },
+  
   /**
    * 生命周期函数--监听页面加载
    */

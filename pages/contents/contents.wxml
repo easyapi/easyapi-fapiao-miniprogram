@@ -4,6 +4,9 @@
       <qr-container text="{{qrTxt}}" size="250"></qr-container>
     </view>
     <view class="content">
+      <view class="corporate">
+        公司名称:{{data.shop.name}}
+      </view>
       <view class="money">
         金额：{{money}}
       </view>
@@ -11,6 +14,7 @@
         开票内容：{{content}}
       </view>
     </view>
+
   </view>
   <view class='operation-btn'>
     <van-button size="large" custom-class="btn-color" bindtap='getWeAppQRDecode'>打印二维码发票</van-button>

@@ -1,4 +1,7 @@
 // pages/contents/contents.js
+import {
+  getKey
+} from '../../api/qiniu.js'
 const {
   request
 } = require('../../utils/request')
@@ -11,31 +14,9 @@ Page({
     qrTxt: 'https://github.com/liuxdi/wx-qr',
     money: '',
     content: '',
+    corporate: '',
   },
 
-  //获取token
-
-  getToken() {
-    var _that = this;
-    wx.request({
-      url: 'https://fapiao-api.easyapi.com/api/authenticate',
-      data: {
-        username: "13656171020",
-        password: "123123",
-        rememberMe: true
-      },
-      method: 'POST',
-      success: function (res) {
-        _that.setData({
-          header: res.data.id_token
-        })
-        console.log(res.data);
-        if (res.statusCode === 200) {
-          _that.getCategories(res.data.id_token);
-        }
-      }
-    })
-  },
   //1.获取开票分类
   getCategories(head) {
     var _that = this;
@@ -66,7 +47,7 @@ Page({
       no: e.target.dataset.item.taxCode.no,
       rate: e.target.dataset.item.taxCode.rate,
       name: e.target.dataset.item.name,
-      active: e.target.dataset.index
+      customCategoryId: e.target.dataset.item.customCategoryId
     });
     console.log(this.data.no + "/" + this.data.rate + "/" + this.data.name);
   },
@@ -78,69 +59,21 @@ Page({
     });
   },
 
-  seeQRcode() {
-    var _that = this;
-    var taxRate = Number(_that.data.rate) / 100;
-    console.log(taxRate);
-    var obj = {
-      shopNo: "",
-      remark: "",
-      items: [{
-        outOrderNo: "",
-        outOrderTime: "",
-        no: _that.data.no,
-        name: _that.data.name,
-        price: _that.data.inputVal,
-        taxRate: taxRate,
-        number: 1
-      }]
-    };
 
-    wx.request({
-      url: 'https://fapiao-api.easyapi.com/scan/print',
-      header: {
-        Authorization: 'Bearer ' + _that.data.header
-      },
-      data: obj,
-      method: 'POST',
-      success: function (res) {
-        if (res.statusCode === 200) {
-          console.log(res.data.content);
-          wx.request({
-            url: 'https://api2.easyapi.com/api/qrCode',
-            header: {
-              Authorization: 'Bearer ' + _that.data.header
-            },
-            data: {
-              appKey: "f4f33c07e706eaf1",
-              appSecret: "46ad7599c926f20c",
-              bg: "FFFFFF",
-              fg: "000000",
-              text: "https://fapiao-scan.easyapi.com/mobile.html?code=" + res.data.content
-            },
-            method: 'POST',
-            success: function (res) {
-              if (res.statusCode === 200) {
-                console.log(res.data.content);
-                wx.navigateTo({
-                  url: '/pages/webViewPage/webViewPage?url=' + res.data.content.img,
-                })
-              }
-            }
-          })
-        }
-      }
-    })
-  },
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad(options) {
+    const data = wx.getStorageSync('user')
+    this.setData({
+      data
+    })
     var pages = getCurrentPages()
     var currentPage = pages[pages.length - 1] //获取当前页面的对象
     var options = currentPage.options //如果要获取url中所带的参数可以查看options
     this.setData({
-      money: options.id //这里的options.表示获取参数，contactid表示参数名称
+      money: options.id, //这里的options.表示获取参数
+      content: options.content,
     })
   },
 
@@ -154,9 +87,7 @@ Page({
   /**
    * 生命周期函数--监听页面显示
    */
-  onShow() {
-
-  },
+  onShow() {},
 
   /**
    * 生命周期函数--监听页面隐藏
