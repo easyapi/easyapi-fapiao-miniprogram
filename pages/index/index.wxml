@@ -13,6 +13,7 @@
         <van-cell-group>
           <van-field type="digit" focus="true" value="{{ value }}" placeholder="请输入开票金额" border="{{ false }}" bind:blur="getInputVal" />
         </van-cell-group>
+        <VanNumberKeyboard />
       </view>
 
       <view class='operation-btn'>

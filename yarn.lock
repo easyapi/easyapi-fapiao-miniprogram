@@ -2,6 +2,11 @@
 # yarn lockfile v1
 
 
+"@vant/touch-emulator@^1.4.0":
+  "integrity" "sha512-Zt+zISV0+wpOew2S1siOJ3G22y+hapHAKmXM+FhpvWzsRc4qahaYXatCAITuuXt0EcDp7WvEeTO4F7p9AtX/pw=="
+  "resolved" "https://registry.npmjs.org/@vant/touch-emulator/-/touch-emulator-1.4.0.tgz"
+  "version" "1.4.0"
+
 "@vant/weapp@^1.10.19":
   "integrity" "sha512-RStOPlSELi9lqim9dGagguViUVMNnfZaEceZ248JZgPjn5TzL2nwwHGWl9VI69SBPC+5MPS+LXm7Z4jcdscFeg=="
   "resolved" "https://mirrors.cloud.tencent.com/npm/@vant/weapp/-/weapp-1.10.19.tgz"
