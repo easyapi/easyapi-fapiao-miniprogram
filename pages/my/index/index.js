@@ -1,4 +1,5 @@
 import Dialog from '../../../miniprogram_npm/@vant/weapp/dialog/dialog';
+const { ifNoLogin } = require('../../../utils/noLogin')
 
 Page({
 
@@ -78,6 +79,12 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow: function () {
+    if(ifNoLogin()){
+      wx.redirectTo({
+        url: '/pages/login/login/login',
+      })
+      return
+    }
     let sysinfo = wx.getSystemInfoSync();
     this.setData({
       statusBarHeight: sysinfo.statusBarHeight

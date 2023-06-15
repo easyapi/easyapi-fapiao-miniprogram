@@ -1,6 +1,7 @@
 const {
   getCustomCategory
 } = require('../../api/enterprise')
+const { ifNoLogin } = require('../../utils/noLogin')
 
 Page({
   data: {
@@ -76,6 +77,12 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow: function () {
+    if(ifNoLogin()){
+      wx.redirectTo({
+        url: '/pages/login/login/login',
+      })
+      return
+    }
     this.getCustomCategory()
   },
   /**
