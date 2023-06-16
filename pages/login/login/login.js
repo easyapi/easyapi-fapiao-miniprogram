@@ -54,6 +54,9 @@ Page({
         wx.showToast({
           title: res.data.message,
        })  
+       wx.navigateTo({
+        url: '/pages/index/index'
+      })
       }else{
         wx.showToast({
           title: res.data.message,

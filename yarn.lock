@@ -12,6 +12,11 @@
   "resolved" "https://mirrors.cloud.tencent.com/npm/@vant/weapp/-/weapp-1.10.19.tgz"
   "version" "1.10.19"
 
+"text-encoding@^0.7.0":
+  "integrity" "sha512-oJQ3f1hrOnbRLOcwKz0Liq2IcrvDeZRHXhd9RgLrsT+DjWY/nty1Hi7v3dtkaEYbPYe0mUoOfzRrMwfXXwgPUA=="
+  "resolved" "https://registry.npmjs.org/text-encoding/-/text-encoding-0.7.0.tgz"
+  "version" "0.7.0"
+
 "vant-weapp@^0.5.29":
   "integrity" "sha512-RMc0Ga914XFwspw2WuOMU8bOHlIkua8X1DoQ/KPnGQzjwT1uEL4S7W186EmaHF1wN2krB9BVd0LdRRt39dGh6Q=="
   "resolved" "https://registry.npmmirror.com/vant-weapp/-/vant-weapp-0.5.29.tgz"

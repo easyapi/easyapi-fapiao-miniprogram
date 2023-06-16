@@ -10,7 +10,8 @@ Page({
    * 页面的初始数据
    */
   data: {
-    loginSuccess: getApp().globalData.loginSuccess
+    loginSuccess: getApp().globalData.loginSuccess,
+    name: ''
   },
 
   jumpPage(e) {
@@ -52,6 +53,7 @@ Page({
    */
   onLoad: function (options) {
 
+
   },
 
   /**
@@ -65,7 +67,15 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow: function () {
-
+    if (wx.getStorageSync('BLE').name) {
+      this.setData({
+        name: wx.getStorageSync('BLE').name
+      })
+    } else {
+      this.setData({
+        name: '未连接'
+      })
+    }
   },
 
   /**

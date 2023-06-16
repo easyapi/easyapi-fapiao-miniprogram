@@ -10,14 +10,20 @@
         </view>
       </view>
       <view class='advertising'>
+        <van-cell required name="levelClassify" value="{{category}}" title="发票类型" bindtap="choseTypeClassify">
+          <van-icon slot="right-icon" name="arrow" class="custom-icon" />
+        </van-cell>
         <van-cell-group>
-          <van-field type="digit" focus="true" value="{{ value }}" placeholder="请输入开票金额" border="{{ false }}" bind:blur="getInputVal" />
+          <van-field type="digit" focus="true" value="{{ inputVal }}" placeholder="请输入开票金额" border="{{ false }}" bind:blur="getInputVal" />
+          <van-field type="digit" focus="true" value="{{ phone }}" placeholder="请输入联系电话" border="{{ false }}" bind:blur="getPhoneVal" />
         </van-cell-group>
+
+
         <VanNumberKeyboard />
       </view>
 
       <view class='operation-btn'>
-        <van-button size="large" custom-class="btn-color" bindtap='getWeAppQRDecode'>打印二维码发票</van-button>
+        <van-button size="large" custom-class="btn-color" bindtap='print'>打印二维码发票</van-button>
       </view>
       <view class='operation-btn'>
         <van-button size="large" bindtap='seeQRcode'>查看二维码</van-button>
@@ -25,4 +31,7 @@
       <van-dialog id="van-dialog" />
     </view>
   </scroll-view>
+  <van-popup show="{{ showClassify }}" position="bottom" bind:close="onCancelClassify">
+    <van-picker show-toolbar columns="{{ columns }}" bind:cancel="onCancelClassify" bind:confirm="onConfirmClassify" />
+  </van-popup>
 </view>

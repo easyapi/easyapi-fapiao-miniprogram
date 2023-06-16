@@ -11,54 +11,10 @@ Page({
    * 页面的初始数据
    */
   data: {
-    qrTxt: 'https://github.com/liuxdi/wx-qr',
+    qrTxt: null,
     money: '',
     content: '',
-    corporate: '',
   },
-
-  //1.获取开票分类
-  getCategories(head) {
-    var _that = this;
-    wx.request({
-      url: 'https://fapiao-api.easyapi.com/custom-categories',
-      header: {
-        Authorization: 'Bearer ' + head
-      },
-      data: {},
-      method: 'GET',
-      success: function (res) {
-        console.log(res.data.content);
-        if (res.statusCode === 200) {
-          _that.setData({
-            tabs: res.data.content,
-            no: res.data.content[0].taxCode.no,
-            rate: res.data.content[0].taxCode.rate,
-            name: res.data.content[0].name
-          })
-        }
-      }
-    })
-  },
-  // 点击获取点击类别的信息
-  getItemImfor(e) {
-    console.log(e);
-    this.setData({
-      no: e.target.dataset.item.taxCode.no,
-      rate: e.target.dataset.item.taxCode.rate,
-      name: e.target.dataset.item.name,
-      customCategoryId: e.target.dataset.item.customCategoryId
-    });
-    console.log(this.data.no + "/" + this.data.rate + "/" + this.data.name);
-  },
-  // 获取input值
-  getInputVal(e) {
-    console.log(e);
-    this.setData({
-      inputVal: e.detail.value
-    });
-  },
-
 
   /**
    * 生命周期函数--监听页面加载
@@ -74,6 +30,7 @@ Page({
     this.setData({
       money: options.id, //这里的options.表示获取参数
       content: options.content,
+      qrTxt: `https://fapiao-scan.easyapi.com/?code=${options.qrCode}`
     })
   },
 

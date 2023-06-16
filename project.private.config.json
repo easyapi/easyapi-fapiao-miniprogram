@@ -29,6 +29,13 @@
           "query": "id=undefined",
           "launchMode": "default",
           "scene": null
+        },
+        {
+          "name": "",
+          "pathName": "pages/contents/contents",
+          "query": "",
+          "launchMode": "default",
+          "scene": null
         }
       ]
     }

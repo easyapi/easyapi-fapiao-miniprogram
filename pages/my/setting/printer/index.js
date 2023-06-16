@@ -6,106 +6,100 @@ Page({
    * 页面的初始数据
    */
   data: {
-    title: 'Blea',
-    label: '3D:3F',
+    title: '',
+    label: '',
     deviceId: '',
-    devicesList: []
+    serviceId: '',
+    devicesList: [],
+    name: '',
+    canWrite: false
   },
 
-//连接蓝牙
-connect(v){
-  wx.showLoading({
-      mask:true,
-      title:'连接蓝牙中'
-  })
-  var that=this
-  that.setData({
-    deviceId:v.currentTarget.dataset.item.deviceId
-  })
-  wx.createBLEConnection({
-    deviceId:that.data.deviceId,
-    timeout:9000,
-    success(rse){
-      console.log('连接蓝牙情况',rse)
-      wx.getBLEDeviceServices({
-        deviceId:that.data.deviceId,
-        complete(rse){
-          if(rse.errCode!=0){
-            if(rse.errCode==10012){
-              wx.showToast({
-                title: '连接蓝牙超时请重试',
-                icon: 'error',
-                duration: 1000
-              })
-            }else{
-              wx.showToast({
-                title: '连接蓝牙异常',
-                icon: 'error',
-                duration: 1000
-              })
-            }
-            return
-          }
-          //查询特征值
-          that.setData({
-            inactive:[]
-          })
-          for(var i in rse.services){
-            wx.getBLEDeviceCharacteristics({
-              deviceId:that.data.deviceId,
-              serviceId:rse.services[i].uuid,
-              complete(rse){
-                if(that.data.inactive[0]){
-                  return
-                }
-                for(var j in rse.characteristics){
-                  if(rse.characteristics[j].properties.write){
-                        var arr=that.data.inactive
-                        console.log(that.data.inactive,'查询值')
-                        arr.push({
-                          deviceId:rse.deviceId,
-                          serviceId:rse.serviceId,
-                          characteristicId:rse.characteristics[j].uuid,
-                          name:v.currentTarget.dataset.item.name
-                        })
-                        wx.setStorageSync('bluetooth', v)
-                        that.setData({
-                          inactive:arr
-                        })
-                        wx.showToast({
-                          title: '连接成功',
-                          duration: 1000
-                        })
-                          that.data.status==1?that.print():that.data.status==2?that.receipt():''
-                      //  that.speedUp(rse.deviceId)
-                       break
-                  }
-                }
-                if(!that.data.inactive[0]){
-                  wx.showToast({
-                    title: '获取蓝牙服务失败',
-                    icon: 'error',
-                    duration: 1000
-                  })
-                }
+  //连接蓝牙
+  connect(v) {
+    console.log(v, 999)
+    wx.showLoading({
+      mask: true,
+      title: '连接蓝牙中'
+    })
+    var that = this
+    that.setData({
+      deviceId: v.currentTarget.dataset.item.deviceId,
+      name: v.currentTarget.dataset.item.name
+    })
+    wx.createBLEConnection({
+      deviceId: that.data.deviceId,
+      timeout: 9000,
+      success(rse) {
+        console.log('连接蓝牙情况', rse)
+
+        wx.getBLEDeviceServices({
+          deviceId: that.data.deviceId,
+          success: (res) => {
+            let deviceId = that.data.deviceId
+            console.log('getBLEDeviceServices', res)
+            for (let i = 0; i < res.services.length; i++) {
+              if (res.services[i].isPrimary) {
+                that.getBLEDeviceCharacteristics(deviceId, res.services[i].uuid)
+                return
               }
+            }
+          }
+        })
+      },
+      fail(rse) {
+        console.log('链接失败')
+      },
+      complete() {
+        wx.stopBluetoothDevicesDiscovery({
+          success() {
+            console.log('停止搜索蓝牙')
+          }
+        })
+      }
+    })
+  },
+
+  getBLEDeviceCharacteristics(deviceId, serviceId) {
+    this.setData({
+      serviceId: serviceId
+    })
+    console.log(deviceId, serviceId, '服务id获取到了')
+    wx.getBLEDeviceCharacteristics({
+      deviceId,
+      serviceId,
+      success: (res) => {
+        console.log('getBLEDeviceCharacteristics success', res.characteristics)
+        // 这里会存在特征值是支持write，写入成功但是没有任何反应的情况
+        // 只能一个个去试
+        for (let i = 0; i < res.characteristics.length; i++) {
+          const item = res.characteristics[i]
+          if (item.properties.write) {
+            this.setData({
+              canWrite: true
             })
+            wx.setStorageSync('BLE', {
+              deviceId: this.data.deviceId,
+              serviceId: this.data.serviceId,
+              characteristicId: item.uuid,
+              name:this.data.name
+            })
+            break;
           }
         }
-      })
-    },
-    fail(rse){
-      console.log('链接失败')
-    },
-    complete(){
-      wx.stopBluetoothDevicesDiscovery({
-        success(){
-          console.log('停止搜索蓝牙')
-        }
-      })
-    }
-  })
-},
+        wx.showToast({
+          title: '连接成功',
+          duration: 1000
+        })
+        wx.navigateBack({
+          delta: 1
+        })
+      },
+      fail(res) {
+        console.error('getBLEDeviceCharacteristics', res)
+      }
+    })
+  },
 
   /**
    * 生命周期函数--监听页面加载
@@ -125,32 +119,33 @@ connect(v){
    * 生命周期函数--监听页面显示
    */
   onShow() {
+
     var that = this
     wx.openBluetoothAdapter({
       success: (res) => {
         // 系统蓝牙模块打开。，并且蓝牙初始化成功后开始搜索蓝牙打印机
-          that.setData({
-            devicesList:[]
-          })
-          wx.startBluetoothDevicesDiscovery({
-            success(res){
-              //监听新设备
-              wx.onBluetoothDeviceFound(function(res) {
-                console.log(res.devices, '搜索到的设备')
-                var devices = res.devices;
-                if(devices[0].name!=''){
-                  var list= that.data.devicesList
-                  list.push(devices[0])
-                  that.setData({
-                    devicesList: list,
-                  })
-                }
-              })
-            },
-            fail(res){
-              console.log('搜索蓝牙失败',res)
-            }
-          })
+        that.setData({
+          devicesList: []
+        })
+        wx.startBluetoothDevicesDiscovery({
+          success(res) {
+            //监听新设备
+            wx.onBluetoothDeviceFound(function (res) {
+              console.log(res.devices, '搜索到的设备')
+              var devices = res.devices;
+              if (devices[0].name != '') {
+                var list = that.data.devicesList
+                list.push(devices[0])
+                that.setData({
+                  devicesList: list,
+                })
+              }
+            })
+          },
+          fail(res) {
+            console.log('搜索蓝牙失败', res)
+          }
+        })
       },
       fail: (res) => {
         // 一般如果系统蓝牙模块启动失败，或者设备不支持蓝牙则会初始化失败
