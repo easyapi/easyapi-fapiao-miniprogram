@@ -35,6 +35,7 @@ module.exports.ajax = function(url, method, data, header) {
   });
   return promise;
 };
+
 //用户基本请求
 module.exports.http = function(url, method, data, header) {
   wx.showLoading({

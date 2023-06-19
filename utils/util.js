@@ -132,9 +132,19 @@ function send0X0A() {
   return buffer;
 }
 
+function sendDirective(arr) {
+  const buffer = new ArrayBuffer(arr.length)
+  const dataView = new DataView(buffer)
+  for (let i in arr) {
+    dataView.setUint8(i, arr[i])
+  }
+  return buffer;
+}
+
 module.exports = {
   hexStringToArrayBuffer: hexStringToArrayBuffer,
   hexStringToBuff: hexStringToBuff,
   send0X0A: send0X0A,
+  sendDirective: sendDirective,
   formatTime: formatTime
 }

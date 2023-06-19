@@ -17,6 +17,11 @@ const
   PrinterJobs = require('../../printer/printerjobs')
 const
   printerUtil = require('../../printer/printerutil')
+import drawQrcode from '../../utils/weapp.qrcode.esm'
+import util from '../../utils/util.js'
+
+var toArrayBuffer = require('to-array-buffer')
+var Buffer = require('buffer/').Buffer
 
 Page({
   data: {
@@ -35,11 +40,15 @@ Page({
     img: '',
     canvasHeight: '',
     canvasWidth: '',
-    outOrderNo: ''
+    outOrderNo: '',
+    shopName: '',
+    qrTxt: '', //二维码地址
   },
 
-  
-  //1.获取开票分类
+
+  /**
+   * 获取开票分类
+   */
   getCustomCategory() {
     let params = {
       page: 0,
@@ -65,6 +74,7 @@ Page({
       }
     })
   },
+
   /**
    * 获取参数信息
    */
@@ -140,7 +150,7 @@ Page({
   /**
    * 查看二维码
    */
-  seeQRcode() {
+  seeQRcode(form) {
     if (this.data.category == '' || this.data.category == '请选择发票类型') {
       wx.showToast({
         title: '请选择发票类型',
@@ -171,16 +181,21 @@ Page({
     this.setData({
       outOrderNo: timestampToTime(new Date().getTime())
     })
-
     createScan(data).then(res => {
-      console.log(res)
-
-      // 跳转首页
-      if (res.data.code == 1) {
-        wx.navigateTo({
-          url: `/pages/contents/contents?id=${this.data.inputVal}&content=${this.data.name}&qrCode=${res.data.content}`
+      if (form === 'print') {
+        this.setData({
+          qrTxt: `https://fapiao-scan.easyapi.com/?code=${res.data.content}`
         })
+        this.setQRcode()
+      } else {
+        // 跳转二维码页面
+        if (res.data.code == 1) {
+          wx.navigateTo({
+            url: `/pages/contents/contents?id=${this.data.inputVal}&content=${this.data.name}&qrCode=${res.data.content}`
+          })
+        }
       }
+
     })
   },
 
@@ -195,20 +210,110 @@ Page({
     return hexArr.join(',')
   },
 
+  /**
+   * 设置二维码
+   */
+  setQRcode() {
+    let that = this
+    const ctx = wx.createCanvasContext('canvas')
+    ctx.clearRect(0, 0, 160, 160);
+    drawQrcode({
+      canvasId: 'canvas',
+			text: String(this.data.qrTxt),
+			width: 160,
+      height: 160,
+      callback(e) {
+        setTimeout(() => {
+          wx.canvasGetImageData({
+            canvasId: 'canvas',
+						x: 0,
+						y: 0,
+						width: 160,
+            height: 160,
+            success(res) {
+              let arr = that.convert4to1(res.data);
+              let data = that.convert8to1(arr);
+							const cmds = [].concat([27, 97, 1], [29, 118, 48, 0, 20, 0, 160, 0], data, [27, 74, 3], [27, 64]);
+              const buffer = toArrayBuffer(Buffer.from(cmds, 'gb2312'));
+							let arrPrint = [];
+              arrPrint.push(util.sendDirective([0x1B, 0x40]));
+							for (let i = 0; i < buffer.byteLength; i = i + 20) {
+								arrPrint.push(buffer.slice(i, i + 20));
+              }
+              arrPrint.push(util.hexStringToBuff("\n"));
+              arrPrint.push(util.sendDirective([0x1B, 0x61, 0x01])); //居中
+              arrPrint.push(util.hexStringToBuff("\n"));
+              arrPrint.push(util.hexStringToBuff("\n"));
+              arrPrint.forEach((item,index) => {
+                setTimeout(() =>{
+                  that._writeBLECharacteristicValue(item)
+                }, index * 20);
+              })
+							
+            }
+          })
+        }, 1500)
+      }
+    })
+  },
+
+  //4合1
+	convert4to1(res) {
+		let arr = [];
+		for (let i = 0; i < res.length; i++) {
+			if (i % 4 == 0) {
+				let rule = 0.29900 * res[i] + 0.58700 * res[i + 1] + 0.11400 * res[i + 2];
+				if (rule > 200) {
+					res[i] = 0;
+				} else {
+					res[i] = 1;
+				}
+				arr.push(res[i]);
+			}
+		}
+		return arr;
+  },
+  
+  	//8合1
+	convert8to1(arr) {
+		let data = [];
+		for (let k = 0; k < arr.length; k += 8) {
+			let temp = arr[k] * 128 + arr[k + 1] * 64 + arr[k + 2] * 32 + arr[k + 3] * 16 + arr[k + 4] * 8 + arr[k + 5] * 4 +
+				arr[k + 6] * 2 + arr[k + 7] * 1
+			data.push(temp);
+		}
+		return data;
+	},
 
   /**
    * 打印
    */
   print() {
+    if (this.data.category == '' || this.data.category == '请选择发票类型') {
+      wx.showToast({
+        title: '请选择发票类型',
+        icon: 'none'
+      })
+      return
+    }
+    if (this.data.inputVal == '') {
+      wx.showToast({
+        title: '请输入开票金额',
+        icon: 'none'
+      })
+      return
+    }
     this.setData({
       outOrderNo: timestampToTime(new Date().getTime())
     })
+
     let printerJobs = new PrinterJobs();
     printerJobs
       .setAlign('ct')
       .setSize(2, 2)
       .print(wx.getStorageSync('user').shop.name)
       .setAlign('ct')
+      .setSize(1, 2)
       .print(printerUtil.fillLine())
       .setAlign('ct')
       .setSize(1, 1)
@@ -225,8 +330,10 @@ Page({
       .setAlign('ct')
       .setSize(1, 1)
       .print('联系电话：' + this.data.phone)
+      .setAlign('ct')
+      .setSize(1, 1)
       .print(printerUtil.fillLine())
-      .println();
+      .print();
 
     let buffer = printerJobs.buffer();
     // console.log('ArrayBuffer', 'length: ' + buffer.byteLength, ' hex: ' + ab2hex(buffer));
@@ -239,6 +346,7 @@ Page({
       let subPackage = buffer.slice(i, i + maxChunk <= length ? (i + maxChunk) : length);
       setTimeout(this._writeBLECharacteristicValue, j * delay, subPackage);
     }
+    this.seeQRcode('print')
   },
 
   _writeBLECharacteristicValue(buffer) {
@@ -282,7 +390,11 @@ Page({
     this.getCustomCategory()
     this.getShop()
     this.getSetting()
+    this.setData({
+      shopName: wx.getStorageSync('user') ? wx.getStorageSync('user').shop.name : ''
+    })
   },
+
   /**
    * 生命周期函数--监听页面隐藏
    */

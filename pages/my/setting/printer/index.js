@@ -119,7 +119,6 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow() {
-
     var that = this
     wx.openBluetoothAdapter({
       success: (res) => {
@@ -128,6 +127,8 @@ Page({
           devicesList: []
         })
         wx.startBluetoothDevicesDiscovery({
+          powerLevel: 'high',
+          allowDuplicatesKey: false,
           success(res) {
             //监听新设备
             wx.onBluetoothDeviceFound(function (res) {

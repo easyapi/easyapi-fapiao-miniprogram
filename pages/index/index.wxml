@@ -1,7 +1,7 @@
 <view class='container'>
   <scroll-view class='order-scroll' scroll-y bindscrolltolower="getProductList">
     <view class="text-align-center">
-      <text class='floor-title_name fz-18'>欢迎，无锡帮趣数据服务有限公司</text>
+      <text class='floor-title_name fz-18'>欢迎，{{ shopName }}</text>
     </view>
     <view>
       <view class='flex-r type-btn'>
@@ -17,8 +17,6 @@
           <van-field type="digit" focus="true" value="{{ inputVal }}" placeholder="请输入开票金额" border="{{ false }}" bind:blur="getInputVal" />
           <van-field type="digit" focus="true" value="{{ phone }}" placeholder="请输入联系电话" border="{{ false }}" bind:blur="getPhoneVal" />
         </van-cell-group>
-
-
         <VanNumberKeyboard />
       </view>
 
@@ -31,6 +29,7 @@
       <van-dialog id="van-dialog" />
     </view>
   </scroll-view>
+  <canvas style="width: 160px; height: 160px; position: fixed;left: 10000px;" canvas-id="canvas"></canvas>
   <van-popup show="{{ showClassify }}" position="bottom" bind:close="onCancelClassify">
     <van-picker show-toolbar columns="{{ columns }}" bind:cancel="onCancelClassify" bind:confirm="onConfirmClassify" />
   </van-popup>

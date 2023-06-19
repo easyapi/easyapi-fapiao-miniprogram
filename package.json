@@ -13,6 +13,8 @@
     "@vant/weapp": "^1.10.19",
     "text-encoding": "^0.7.0",
     "vant-weapp": "^0.5.29",
-    "wx-qr": "^0.1.2"
+    "wx-qr": "^0.1.2",
+    "to-array-buffer": "^3.2.0",
+    "buffer": "^5.2.1"
   }
 }
