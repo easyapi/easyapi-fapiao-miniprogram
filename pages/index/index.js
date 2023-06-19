@@ -38,6 +38,7 @@ Page({
     outOrderNo: ''
   },
 
+  
   //1.获取开票分类
   getCustomCategory() {
     let params = {
