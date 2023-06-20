@@ -14,6 +14,8 @@ Page({
     qrTxt: null,
     money: '',
     content: '',
+    phone:'',
+      effectiveDay:'',
   },
 
   /**
@@ -30,6 +32,8 @@ Page({
     this.setData({
       money: options.id, //这里的options.表示获取参数
       content: options.content,
+      phone:options.phone,
+      effectiveDay:options.effectiveDay,
       qrTxt: `https://fapiao-scan.easyapi.com/?code=${options.qrCode}`
     })
   },

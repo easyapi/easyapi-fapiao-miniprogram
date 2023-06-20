@@ -1,4 +1,6 @@
-const { connectBluetooth } = require('../../../../utils/bindBLE')
+const {
+  connectBluetooth
+} = require('../../../../utils/bindBLE')
 
 Page({
 
@@ -7,6 +9,7 @@ Page({
    */
   data: {
     devicesList: [],
+    bleName: ''
   },
 
   //连接蓝牙
@@ -34,11 +37,13 @@ Page({
    */
   onShow() {
     this.setData({
-      devicesList: getApp().globalData.arrBLE
+      devicesList: getApp().globalData.arrBLE,
+      bleName: getApp().globalData.bindBLE.name
     })
     setInterval(() => {
       this.setData({
-        devicesList: getApp().globalData.arrBLE
+        devicesList: getApp().globalData.arrBLE,
+        bleName: getApp().globalData.bindBLE.name
       })
     }, 2000)
   },

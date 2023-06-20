@@ -1,4 +1,6 @@
 <view class='container'>
+  <view class="title" wx:if="{{bleName}}">已连接</view>
+  <van-cell title="{{bleName}}" wx:if="{{bleName}}" />
   <view class="title">附近设备</view>
   <van-cell-group>
     <van-cell wx:for="{{devicesList}}" wx:key="item" center title="{{item.name}}"  >

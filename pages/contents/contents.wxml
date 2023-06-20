@@ -13,6 +13,12 @@
       <view class="contentCon">
         开票内容：{{content}}
       </view>
+      <view class="contentCon">
+        有效期：{{effectiveDay}}
+      </view>
+      <view class="contentCon">
+        小票联系电话：{{phone}}
+      </view>
     </view>
 
   </view>

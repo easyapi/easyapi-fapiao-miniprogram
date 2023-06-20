@@ -13,7 +13,9 @@ const {
   getShop,
   findFieldKeyList
 } = require('../../api/scan')
-const { initBLE } = require('../../utils/bindBLE')
+const {
+  initBLE
+} = require('../../utils/bindBLE')
 const
   PrinterJobs = require('../../printer/printerjobs')
 const
@@ -44,6 +46,7 @@ Page({
     outOrderNo: '',
     shopName: '',
     qrTxt: '', //二维码地址
+    show: false
   },
 
 
@@ -115,13 +118,35 @@ Page({
 
   // 点击获取点击类别的信息
   getItemImfor(e) {
-    console.log(e)
     this.setData({
       no: e.target.dataset.item.taxCode.no,
       rate: e.target.dataset.item.taxCode.rate,
       name: e.target.dataset.item.name,
       customCategoryId: e.target.dataset.item.customCategoryId
     });
+    this.selectContent()
+  },
+
+  selectContent() {
+    let content = wx.getStorageSync('selectContent') ? wx.getStorageSync('selectContent') : []
+    if (content.length === 0) {
+      let obj = {
+        shopName: this.data.shopName,
+        customCategoryId: this.data.customCategoryId,
+        category: this.data.category
+      }
+      content = [obj]
+      wx.setStorageSync('selectContent', content)
+      return
+    }
+    content.forEach(item => {
+      if (item.shopName === this.data.shopName) {
+        item.shopName === this.data.shopName
+        item.customCategoryId = this.data.customCategoryId
+        item.category = this.data.category
+      }
+    })
+    wx.setStorageSync('selectContent', content)
   },
 
   // 获取input值
@@ -131,6 +156,7 @@ Page({
     });
   },
   getPhoneVal(e) {
+    wx.setStorageSync('phone', e.detail.value)
     this.setData({
       phone: e.detail.value
     });
@@ -140,12 +166,16 @@ Page({
     this.setData({
       showClassify: !this.data.showClassify,
     })
+
   },
   onConfirmClassify(e) {
+
     this.setData({
       showClassify: !this.data.showClassify,
       'category': e.detail.value
     })
+    this.selectContent()
+
   },
   onCancelClassify() {
     this.setData({
@@ -166,6 +196,13 @@ Page({
     if (this.data.inputVal == '') {
       wx.showToast({
         title: '请输入开票金额',
+        icon: 'none'
+      })
+      return
+    }
+    if (this.data.phone == '') {
+      wx.showToast({
+        title: '请输入小票联系电话',
         icon: 'none'
       })
       return
@@ -196,7 +233,7 @@ Page({
         // 跳转二维码页面
         if (res.data.code == 1) {
           wx.navigateTo({
-            url: `/pages/contents/contents?id=${this.data.inputVal}&content=${this.data.name}&qrCode=${res.data.content}`
+            url: `/pages/contents/contents?id=${this.data.inputVal}&content=${this.data.name}&qrCode=${this.data.content}&phone=${this.data.phone}&effectiveDay=${this.data.effectiveDay}`
           })
         }
       }
@@ -224,16 +261,16 @@ Page({
     ctx.clearRect(0, 0, 256, 256);
     drawQrcode({
       canvasId: 'canvas',
-			text: String(this.data.qrTxt),
-			width: 256,
+      text: String(this.data.qrTxt),
+      width: 256,
       height: 256,
       callback(e) {
         setTimeout(() => {
           wx.canvasGetImageData({
             canvasId: 'canvas',
-						x: 0,
-						y: 0,
-						width: 256,
+            x: 0,
+            y: 0,
+            width: 256,
             height: 256,
             success(res) {
               console.log(res)
@@ -241,21 +278,21 @@ Page({
               let data = that.convert8to1(arr);
               const cmds = [].concat([27, 97, 1], [29, 118, 48, 0, 32, 0, 0, 1], data, [27, 74, 3], [27, 64]);
               const buffer = toArrayBuffer(Buffer.from(cmds, 'gb2312'));
-							let arrPrint = [];
+              let arrPrint = [];
               arrPrint.push(util.sendDirective([0x1B, 0x40]));
-							for (let i = 0; i < buffer.byteLength; i = i + 20) {
-								arrPrint.push(buffer.slice(i, i + 20));
+              for (let i = 0; i < buffer.byteLength; i = i + 20) {
+                arrPrint.push(buffer.slice(i, i + 20));
               }
               arrPrint.push(util.hexStringToBuff("\n"));
               arrPrint.push(util.sendDirective([0x1B, 0x61, 0x01])); //居中
               arrPrint.push(util.hexStringToBuff("\n"));
               arrPrint.push(util.hexStringToBuff("\n"));
-              arrPrint.forEach((item,index) => {
-                setTimeout(() =>{
+              arrPrint.forEach((item, index) => {
+                setTimeout(() => {
                   that._writeBLECharacteristicValue(item)
                 }, index * 20);
               })
-							
+
             }
           })
         }, 1500)
@@ -264,47 +301,47 @@ Page({
   },
 
   //4合1
-	convert4to1(res) {
-		let arr = [];
-		for (let i = 0; i < res.length; i++) {
-			if (i % 4 == 0) {
-				let rule = 0.29900 * res[i] + 0.58700 * res[i + 1] + 0.11400 * res[i + 2];
-				if (rule > 200) {
-					res[i] = 0;
-				} else {
-					res[i] = 1;
-				}
-				arr.push(res[i]);
-			}
-		}
-		return arr;
+  convert4to1(res) {
+    let arr = [];
+    for (let i = 0; i < res.length; i++) {
+      if (i % 4 == 0) {
+        let rule = 0.29900 * res[i] + 0.58700 * res[i + 1] + 0.11400 * res[i + 2];
+        if (rule > 200) {
+          res[i] = 0;
+        } else {
+          res[i] = 1;
+        }
+        arr.push(res[i]);
+      }
+    }
+    return arr;
   },
-  
-  	//8合1
-	convert8to1(arr) {
-		let data = [];
-		for (let k = 0; k < arr.length; k += 8) {
-			let temp = arr[k] * 128 + arr[k + 1] * 64 + arr[k + 2] * 32 + arr[k + 3] * 16 + arr[k + 4] * 8 + arr[k + 5] * 4 +
-				arr[k + 6] * 2 + arr[k + 7] * 1
-			data.push(temp);
-		}
-		return data;
-	},
+
+  //8合1
+  convert8to1(arr) {
+    let data = [];
+    for (let k = 0; k < arr.length; k += 8) {
+      let temp = arr[k] * 128 + arr[k + 1] * 64 + arr[k + 2] * 32 + arr[k + 3] * 16 + arr[k + 4] * 8 + arr[k + 5] * 4 +
+        arr[k + 6] * 2 + arr[k + 7] * 1
+      data.push(temp);
+    }
+    return data;
+  },
 
   /**
    * 打印
    */
   print() {
-    if(!getApp().globalData.bindBLE.name){
+    if (!getApp().globalData.bindBLE.name) {
       Dialog.confirm({
-        title: '温馨提示',
-        message: '打印发票需要连接打印机，请前往连接！',
-      })
-      .then(() => {
-        wx.navigateTo({
-          url: '../my/setting/printer/index',
+          title: '温馨提示',
+          message: '打印发票需要连接打印机，请前往连接！',
         })
-      })
+        .then(() => {
+          wx.navigateTo({
+            url: '../my/setting/printer/index',
+          })
+        })
       return
     }
     if (this.data.category == '' || this.data.category == '请选择发票类型') {
@@ -321,6 +358,11 @@ Page({
       })
       return
     }
+    this.setData({
+      show: true
+    })
+  },
+  getUserInfo() {
     this.setData({
       outOrderNo: timestampToTime(new Date().getTime())
     })
@@ -382,12 +424,25 @@ Page({
     })
   },
 
+  setOptions(){
+    let arr =wx.getStorageSync('selectContent')
+    arr.forEach(item=>{
+      if(item.shopName === this.data.shopName){
+       this.setData({
+        category : item.category ,
+        customCategoryId : item.customCategoryId ,
+        phone : wx.getStorageSync('phone')
+       })
+      }
+    })
+  },
+
 
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-    
+
   },
 
   /**
@@ -413,6 +468,7 @@ Page({
     this.setData({
       shopName: wx.getStorageSync('user') ? wx.getStorageSync('user').shop.name : ''
     })
+    this.setOptions()
   },
 
   /**
