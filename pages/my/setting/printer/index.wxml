@@ -2,7 +2,7 @@
   <view class="title">附近设备</view>
   <van-cell-group>
     <van-cell wx:for="{{devicesList}}" wx:key="item" center title="{{item.name}}"  >
-      <van-button color="#59BFD3" size="small" data-item = "{{item}}" bindtap='connect'>链接</van-button>
+      <van-button color="#59BFD3" size="small" data-item = "{{item}}" bindtap='connect'>连接</van-button>
     </van-cell>
   </van-cell-group>
 
