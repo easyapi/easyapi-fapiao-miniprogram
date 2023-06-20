@@ -7,7 +7,7 @@
     <van-field
       value="{{ userInfo.username }}"
       label="手机号"
-      placeholder="请输入用户名"
+      placeholder="请输入手机号"
       border="{{ false }}"
       bind:input="inputUsername"
     />
@@ -15,7 +15,7 @@
       value="{{ userInfo.password }}"
       password
       label="密码"
-      placeholder="请输入用户名"
+      placeholder="请输入密码"
       border="{{ false }}"
       bind:input="inputPassword"
     />
