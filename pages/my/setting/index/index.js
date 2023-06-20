@@ -20,34 +20,6 @@ Page({
     })
   },
 
-  logout() {
-    Dialog.confirm({
-        title: '您确认退出吗？',
-      })
-      .then(() => {
-        let data = {
-          providerUserId: wx.getStorageSync('openid'),
-          providerId: 'miniprogram',
-        }
-        updateUnbind(data).then(res => {
-          if (res.data.code == 1) {
-            wx.showToast({
-              title: "退出成功",
-              icon: 'none',
-              duration: 4000
-            })
-            wx.clearStorageSync()
-            wx.switchTab({
-              url: '/pages/home/index/index',
-            })
-          }
-        })
-      })
-      .catch(() => {
-        // on cancel
-
-      });
-  },
   /**
    * 生命周期函数--监听页面加载
    */
@@ -67,9 +39,9 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow: function () {
-    if (wx.getStorageSync('BLE').name) {
+    if (getApp().globalData.bindBLE.name) {
       this.setData({
-        name: wx.getStorageSync('BLE').name
+        name: getApp().globalData.bindBLE.name
       })
     } else {
       this.setData({

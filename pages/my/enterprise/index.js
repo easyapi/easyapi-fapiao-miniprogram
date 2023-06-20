@@ -55,6 +55,9 @@ Page({
     getAccount().then(res => {
       if(res.data.code === 1){
         wx.setStorageSync('user', res.data.content)
+        this.setData({
+          nowShop: res.data.content.shop
+        })
         setTimeout(() => {
           wx.redirectTo({
             url: '/pages/index/index',

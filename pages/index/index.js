@@ -1,3 +1,4 @@
+import Dialog from '../../miniprogram_npm/@vant/weapp/dialog/dialog'
 const {
   getCustomCategory
 } = require('../../api/enterprise')
@@ -12,7 +13,7 @@ const {
   getShop,
   findFieldKeyList
 } = require('../../api/scan')
-const LAST_CONNECTED_DEVICE = 'last_connected_device'
+const { initBLE } = require('../../utils/bindBLE')
 const
   PrinterJobs = require('../../printer/printerjobs')
 const
@@ -70,6 +71,10 @@ Page({
         })
         this.setData({
           tabs: [],
+          customCategoryId: '',
+          no: '',
+          rate: '',
+          name: '',
         })
       }
     })
@@ -216,24 +221,25 @@ Page({
   setQRcode() {
     let that = this
     const ctx = wx.createCanvasContext('canvas')
-    ctx.clearRect(0, 0, 160, 160);
+    ctx.clearRect(0, 0, 256, 256);
     drawQrcode({
       canvasId: 'canvas',
 			text: String(this.data.qrTxt),
-			width: 160,
-      height: 160,
+			width: 256,
+      height: 256,
       callback(e) {
         setTimeout(() => {
           wx.canvasGetImageData({
             canvasId: 'canvas',
 						x: 0,
 						y: 0,
-						width: 160,
-            height: 160,
+						width: 256,
+            height: 256,
             success(res) {
+              console.log(res)
               let arr = that.convert4to1(res.data);
               let data = that.convert8to1(arr);
-							const cmds = [].concat([27, 97, 1], [29, 118, 48, 0, 20, 0, 160, 0], data, [27, 74, 3], [27, 64]);
+              const cmds = [].concat([27, 97, 1], [29, 118, 48, 0, 32, 0, 0, 1], data, [27, 74, 3], [27, 64]);
               const buffer = toArrayBuffer(Buffer.from(cmds, 'gb2312'));
 							let arrPrint = [];
               arrPrint.push(util.sendDirective([0x1B, 0x40]));
@@ -289,6 +295,18 @@ Page({
    * 打印
    */
   print() {
+    if(!getApp().globalData.bindBLE.name){
+      Dialog.confirm({
+        title: '温馨提示',
+        message: '打印发票需要连接打印机，请前往连接！',
+      })
+      .then(() => {
+        wx.navigateTo({
+          url: '../my/setting/printer/index',
+        })
+      })
+      return
+    }
     if (this.data.category == '' || this.data.category == '请选择发票类型') {
       wx.showToast({
         title: '请选择发票类型',
@@ -351,9 +369,9 @@ Page({
 
   _writeBLECharacteristicValue(buffer) {
     wx.writeBLECharacteristicValue({
-      deviceId: wx.getStorageSync('BLE').deviceId,
-      serviceId: wx.getStorageSync('BLE').serviceId,
-      characteristicId: wx.getStorageSync('BLE').characteristicId,
+      deviceId: wx.getStorageSync('lastBLE').deviceId,
+      serviceId: wx.getStorageSync('lastBLE').serviceId,
+      characteristicId: wx.getStorageSync('lastBLE').characteristicId,
       value: buffer,
       success(res) {
         console.log('writeBLECharacteristicValue success', res)
@@ -369,14 +387,16 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-
+    
   },
+
   /**
    * 生命周期函数--监听页面初次渲染完成
    */
   onReady: function () {
-
+    initBLE('last')
   },
+
   /**
    * 生命周期函数--监听页面显示
    */

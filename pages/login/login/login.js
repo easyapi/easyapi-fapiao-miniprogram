@@ -73,7 +73,7 @@ Page({
     getAccount().then(res => {
       if(res.data.code === 1){
         wx.setStorageSync('user', res.data.content)
-        wx.redirectTo({
+        wx.reLaunch({
           url: '/pages/index/index',
         })
       }

@@ -40,5 +40,7 @@ App({
   globalData: {
     userInfo: null,
     appid: 'wx89c1f44434563adc',
+    arrBLE: [],
+    bindBLE: {},
   }
 })
