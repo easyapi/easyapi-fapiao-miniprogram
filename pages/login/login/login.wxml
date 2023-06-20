@@ -1,27 +1,25 @@
 <view class='container'>
   <view class='header'>
-    <image src='../../../images/logo.png' />
+    <image class="logo" src='../../../images/logo.png' />
     <text class='fz-20 fz-w'>{{ name }}</text>
   </view>
-  <van-cell-group>
-    <van-field
-      value="{{ userInfo.username }}"
-      label="手机号"
-      placeholder="请输入手机号"
-      border="{{ false }}"
-      bind:input="inputUsername"
-    />
-    <van-field
-      value="{{ userInfo.password }}"
-      password
-      label="密码"
-      placeholder="请输入密码"
-      border="{{ false }}"
-      bind:input="inputPassword"
-    />
+  <van-cell-group inset>
+    <van-field value="{{ userInfo.username }}" placeholder="请输入手机号"  bind:input="inputUsername">
+      <view slot="left-icon" class="left-icon">
+        <image class="icon" src="../../../images/phone.png" />
+      </view>
+    </van-field>
+    <van-field value="{{ userInfo.password }}" password label="" placeholder="请输入密码" bind:input="inputPassword">
+      <view slot="left-icon" class="left-icon">
+        <image class="icon" src="../../../images/password.png" />
+      </view>
+    </van-field>
   </van-cell-group>
-  <van-button type="primary" size="large" bindtap="login" >登录</van-button>
-  <text class="tips" >
+  <view class="btn">
+    <van-button type="primary" size="large" bindtap="login">登录</van-button>
+  </view>
+  
+  <text class="tips">
     如需使用发票二维码开票服务
     请联系微信：13656171020
   </text>
