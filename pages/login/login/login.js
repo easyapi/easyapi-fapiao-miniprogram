@@ -1,4 +1,7 @@
-const { login, getAccount } = require('../../../api/account')
+const {
+  login,
+  getAccount
+} = require('../../../api/account')
 
 Page({
   /**
@@ -15,7 +18,7 @@ Page({
   /**
    * 获取手机号
    */
-  inputUsername(event){
+  inputUsername(event) {
     this.setData({
       'userInfo.username': event.detail
     })
@@ -24,7 +27,7 @@ Page({
   /**
    * 获取密码
    */
-  inputPassword(event){
+  inputPassword(event) {
     this.setData({
       'userInfo.password': event.detail
     })
@@ -33,15 +36,23 @@ Page({
   /**
    * 登录
    */
-  login(){
-    if( !this.data.userInfo.username ){
+  login() {
+    let reg_tel = /^1[3-9]\d{9}$/; //大陆11位手机号码的正则表达式
+    if (!this.data.userInfo.username) {
       wx.showToast({
         title: '请输入登录手机号',
         icon: 'none'
       })
       return
     }
-    if( !this.data.userInfo.password ){
+    if (!reg_tel.test(this.data.userInfo.username)) {
+      wx.showToast({
+        title: '请填写正确手机号',
+        icon: 'none'
+      })
+      return
+    }
+    if (!this.data.userInfo.password) {
       wx.showToast({
         title: '请输入登录密码',
         icon: 'none'
@@ -49,16 +60,16 @@ Page({
       return
     }
     login(this.data.userInfo).then(res => {
-      if(res.data.code === 1){
+      if (res.data.code === 1) {
         wx.setStorageSync('Authorization', res.data.id_token)
         this.getAccount()
         wx.showToast({
           title: res.data.message,
-       })  
-       wx.navigateTo({
-        url: '/pages/index/index'
-      })
-      }else{
+        })
+        wx.navigateTo({
+          url: '/pages/index/index'
+        })
+      } else {
         wx.showToast({
           title: res.data.message,
           icon: 'error'
@@ -70,9 +81,9 @@ Page({
   /**
    * 获取用户信息
    */
-  getAccount(){
+  getAccount() {
     getAccount().then(res => {
-      if(res.data.code === 1){
+      if (res.data.code === 1) {
         wx.setStorageSync('user', res.data.content)
         wx.reLaunch({
           url: '/pages/index/index',
@@ -97,7 +108,7 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow: function () {
- 
+
   },
 
   /**

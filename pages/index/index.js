@@ -46,7 +46,9 @@ Page({
     outOrderNo: '',
     shopName: '',
     qrTxt: '', //二维码地址
-    show: false
+    show: false,
+    customCategoryIndex: ''
+
   },
 
 
@@ -60,12 +62,26 @@ Page({
     }
     getCustomCategory(params).then(res => {
       if (res.data.code === 1) {
-        this.setData({
-          tabs: res.data.content,
-          customCategoryId: res.data.content[0].customCategoryId,
-          no: res.data.content[0].no,
-          rate: res.data.content[0].rate,
-          name: res.data.content[0].name,
+        if (this.data.customCategoryId === '') {
+          this.setData({
+            tabs: res.data.content,
+            customCategoryId: res.data.content[0].customCategoryId,
+            no: res.data.content[0].no,
+            rate: res.data.content[0].rate,
+            name: res.data.content[0].name,
+          })
+          return
+        }
+        res.data.content.forEach((item) => {
+          if (item.customCategoryId === this.data.customCategoryId) {
+            this.setData({
+              tabs: res.data.content,
+              customCategoryId: item.customCategoryId,
+              no: item.no,
+              rate: item.rate,
+              name: item.name,
+            })
+          }
         })
       } else {
         wx.showToast({
@@ -118,11 +134,13 @@ Page({
 
   // 点击获取点击类别的信息
   getItemImfor(e) {
+    console.log(e)
     this.setData({
       no: e.target.dataset.item.taxCode.no,
       rate: e.target.dataset.item.taxCode.rate,
       name: e.target.dataset.item.name,
-      customCategoryId: e.target.dataset.item.customCategoryId
+      customCategoryId: e.target.dataset.item.customCategoryId,
+      customCategoryIndex: e.target.dataset.index
     });
     this.selectContent()
   },
@@ -133,6 +151,7 @@ Page({
       let obj = {
         shopName: this.data.shopName,
         customCategoryId: this.data.customCategoryId,
+        customCategoryIndex: this.data.customCategoryIndex,
         category: this.data.category
       }
       content = [obj]
@@ -186,6 +205,7 @@ Page({
    * 查看二维码
    */
   seeQRcode(form) {
+
     if (this.data.category == '' || this.data.category == '请选择发票类型') {
       wx.showToast({
         title: '请选择发票类型',
@@ -358,6 +378,13 @@ Page({
       })
       return
     }
+    if (this.data.phone == '') {
+      wx.showToast({
+        title: '请输入小票联系电话',
+        icon: 'none'
+      })
+      return
+    }
     this.setData({
       show: true
     })
@@ -424,15 +451,20 @@ Page({
     })
   },
 
-  setOptions(){
-    let arr =wx.getStorageSync('selectContent')
-    arr.forEach(item=>{
-      if(item.shopName === this.data.shopName){
-       this.setData({
-        category : item.category ,
-        customCategoryId : item.customCategoryId ,
-        phone : wx.getStorageSync('phone')
-       })
+  setOptions() {
+    this.setData({
+      category: '',
+      customCategoryId: '',
+      phone: wx.getStorageSync('phone')
+    })
+    let arr = wx.getStorageSync('selectContent')
+    arr.forEach(item => {
+      if (item.shopName === this.data.shopName) {
+        this.setData({
+          category: item.category,
+          customCategoryId: item.customCategoryId,
+          phone: wx.getStorageSync('phone')
+        })
       }
     })
   },
@@ -462,13 +494,13 @@ Page({
       })
       return
     }
-    this.getCustomCategory()
-    this.getShop()
-    this.getSetting()
     this.setData({
       shopName: wx.getStorageSync('user') ? wx.getStorageSync('user').shop.name : ''
     })
     this.setOptions()
+    this.getCustomCategory()
+    this.getShop()
+    this.getSetting()
   },
 
   /**

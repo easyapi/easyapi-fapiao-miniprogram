@@ -5,7 +5,7 @@
     </view>
     <view>
       <view class='flex-r type-btn'>
-        <view class="text-align-center type-title {{ customCategoryId == item.customCategoryId ? 'border-color':'' }}" wx:for='{{tabs}}' wx:for-item="item" wx:for-index="index" wx:key="{{index}}" bindtap='getItemImfor' data-item="{{item}}">
+        <view class="text-align-center type-title {{ customCategoryId == item.customCategoryId ? 'border-color':'' }}" wx:for='{{tabs}}' wx:for-item="item" wx:for-index="index" wx:key="{{index}}" bindtap='getItemImfor' data-item="{{item}}" data-index="{{index}}">
           {{item.name}}
         </view>
       </view>
@@ -15,7 +15,7 @@
         </van-cell>
         <van-cell-group>
           <van-field type="digit" focus="true" value="{{ inputVal }}" placeholder="请输入开票金额" border="{{ false }}" bind:blur="getInputVal" />
-          <van-field type="digit"  value="{{ phone }}" placeholder="请输入小票联系电话" border="{{ false }}" bind:blur="getPhoneVal" />
+          <van-field type="digit" maxlength="13" value="{{ phone }}" placeholder="请输入小票联系电话" border="{{ false }}" bind:blur="getPhoneVal" />
         </van-cell-group>
         <VanNumberKeyboard />
       </view>
