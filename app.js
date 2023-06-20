@@ -38,6 +38,7 @@ App({
     updateManager();
   },
   globalData: {
+    name: '小票二维码',
     userInfo: null,
     appid: 'wx89c1f44434563adc',
     arrBLE: [],

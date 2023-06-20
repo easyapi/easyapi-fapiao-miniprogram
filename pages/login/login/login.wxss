@@ -19,4 +19,15 @@ image {
 
 .van-button {
   margin-top: 30px;
+
+}
+
+.tips{
+  position:fixed;
+  width: 100%;
+  left: 0;
+  bottom: 60rpx;
+  text-align: center;
+  line-height: 1.5em;
+  font-size: 26rpx;
 }

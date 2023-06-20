@@ -5,6 +5,7 @@ Page({
    * 页面的初始数据
    */
   data: {
+    name: getApp().globalData.name,
     userInfo: {
       username: '',
       password: '',
@@ -35,14 +36,14 @@ Page({
   login(){
     if( !this.data.userInfo.username ){
       wx.showToast({
-        title: '请输入登陆手机号',
+        title: '请输入登录手机号',
         icon: 'none'
       })
       return
     }
     if( !this.data.userInfo.password ){
       wx.showToast({
-        title: '请输入登陆密码',
+        title: '请输入登录密码',
         icon: 'none'
       })
       return
@@ -96,6 +97,7 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow: function () {
+ 
   },
 
   /**

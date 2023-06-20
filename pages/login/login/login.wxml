@@ -1,7 +1,7 @@
 <view class='container'>
   <view class='header'>
     <image src='../../../images/logo.png' />
-    <text class='fz-20 fz-w'>开票小程序</text>
+    <text class='fz-20 fz-w'>{{ name }}</text>
   </view>
   <van-cell-group>
     <van-field
@@ -21,4 +21,8 @@
     />
   </van-cell-group>
   <van-button type="primary" size="large" bindtap="login" >登录</van-button>
+  <text class="tips" >
+    如需使用发票二维码开票服务
+    请联系微信：13656171020
+  </text>
 </view>
