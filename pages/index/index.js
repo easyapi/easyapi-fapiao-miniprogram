@@ -458,7 +458,7 @@ Page({
       customCategoryId: '',
       phone: wx.getStorageSync('phone')
     })
-    let arr = wx.getStorageSync('selectContent')
+    let arr = wx.getStorageSync('selectContent') ? wx.getStorageSync('selectContent') : []
     if(arr.length === 0 ){
       return
     }
