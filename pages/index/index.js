@@ -352,6 +352,7 @@ Page({
    * 打印
    */
   print() {
+    var role = /^\d+(\.\d{1,2})?$/
     if (!getApp().globalData.bindBLE.name) {
       Dialog.confirm({
           title: '温馨提示',
@@ -374,6 +375,13 @@ Page({
     if (this.data.inputVal == '') {
       wx.showToast({
         title: '请输入开票金额',
+        icon: 'none'
+      })
+      return
+    }
+    if(!role.test(this.data.inputVal)) {
+      wx.showToast({
+        title: '请输入正确的开票金额',
         icon: 'none'
       })
       return
