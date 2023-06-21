@@ -34,21 +34,13 @@
     <van-picker show-toolbar columns="{{ columns }}" bind:cancel="onCancelClassify" bind:confirm="onConfirmClassify" />
   </van-popup>
   <van-dialog id="van-dialog" />
-  <van-dialog
-  use-slot
-  title="小票内容"
-  show="{{ show }}"
-  show-cancel-button
-  confirm-button-open-type="getUserInfo"
-  bind:close="onClose"
->
-<view class="piao-content">
-  <view>开票金额：{{inputVal}}元</view>
-  <view>开票内容：{{name}}</view>
-  <view>有效期：{{effectiveDay}}天</view>
-  <view>小票联系电话：{{phone}}</view>
-</view>
-
-</van-dialog>
+  <van-dialog use-slot title="小票内容" show="{{ show }}" show-cancel-button bind:confirm="onConfirm" bind:close="onClose">
+    <view class="piao-content">
+      <view>开票金额：{{inputVal}}元</view>
+      <view>开票内容：{{name}}</view>
+      <view>有效期：{{effectiveDay}}天</view>
+      <view>小票联系电话：{{phone}}</view>
+    </view>
+  </van-dialog>
 
 </view>

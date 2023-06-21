@@ -389,7 +389,8 @@ Page({
       show: true
     })
   },
-  getUserInfo() {
+
+  onConfirm() {
     this.setData({
       outOrderNo: timestampToTime(new Date().getTime())
     })
@@ -458,6 +459,9 @@ Page({
       phone: wx.getStorageSync('phone')
     })
     let arr = wx.getStorageSync('selectContent')
+    if(arr.length === 0 ){
+      return
+    }
     arr.forEach(item => {
       if (item.shopName === this.data.shopName) {
         this.setData({

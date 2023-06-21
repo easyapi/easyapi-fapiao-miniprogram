@@ -59,7 +59,7 @@ Page({
           nowShop: res.data.content.shop
         })
         setTimeout(() => {
-          wx.redirectTo({
+          wx.reLaunch({
             url: '/pages/index/index',
           })
         }, 1000)
