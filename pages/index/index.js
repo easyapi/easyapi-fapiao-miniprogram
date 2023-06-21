@@ -222,7 +222,7 @@ Page({
     }
     if (this.data.phone == '') {
       wx.showToast({
-        title: '请输入小票联系电话',
+        title: '请输入联系电话',
         icon: 'none'
       })
       return
@@ -388,7 +388,7 @@ Page({
     }
     if (this.data.phone == '') {
       wx.showToast({
-        title: '请输入小票联系电话',
+        title: '请输入联系电话',
         icon: 'none'
       })
       return
