@@ -66,7 +66,7 @@ Page({
           this.setData({
             tabs: res.data.content,
             customCategoryId: res.data.content[0].customCategoryId,
-            no: res.data.content[0].no,
+            no: res.data.content[0].taxCode.no,
             rate: res.data.content[0].rate,
             name: res.data.content[0].name,
           })
@@ -235,7 +235,7 @@ Page({
         no: this.data.no,
         rate: this.data.rate,
         name: this.data.name,
-        customCategoryId: this.data.customCategoryId,
+        // customCategoryId: this.data.customCategoryId,
         number: 1,
         price: this.data.inputVal,
       }]
