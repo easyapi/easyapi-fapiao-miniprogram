@@ -243,12 +243,15 @@ Page({
     this.setData({
       outOrderNo: timestampToTime(new Date().getTime())
     })
-    createScan(data).then(res => {
+    createScan(data).then((res) => {
       if (form === 'print') {
         this.setData({
           qrTxt: `https://fapiao-scan.easyapi.com/?code=${res.data.content}`
         })
-        this.setQRcode()
+         this.setQRcode()
+         setTimeout(() => {
+           this.customPrint()
+         }, 11000)
       } else {
         // 跳转二维码页面
         if (res.data.code == 1) {
@@ -257,7 +260,6 @@ Page({
           })
         }
       }
-
     })
   },
 
@@ -293,7 +295,6 @@ Page({
             width: 256,
             height: 256,
             success(res) {
-              console.log(res)
               let arr = that.convert4to1(res.data);
               let data = that.convert8to1(arr);
               const cmds = [].concat([27, 97, 1], [29, 118, 48, 0, 32, 0, 0, 1], data, [27, 74, 3], [27, 64]);
@@ -306,7 +307,6 @@ Page({
               arrPrint.push(util.hexStringToBuff("\n"));
               arrPrint.push(util.sendDirective([0x1B, 0x61, 0x01])); //居中
               arrPrint.push(util.hexStringToBuff("\n"));
-              arrPrint.push(util.hexStringToBuff("\n"));
               arrPrint.forEach((item, index) => {
                 setTimeout(() => {
                   that._writeBLECharacteristicValue(item)
@@ -318,6 +318,32 @@ Page({
         }, 1500)
       }
     })
+  },
+
+  /**
+   * 自定义内容
+   */
+  customPrint(){
+    let printerJobs = new PrinterJobs();
+    printerJobs
+      .setAlign('ct')
+      .setSize(1, 1)
+      .print(printerUtil.fillLine())
+      .setAlign('ct')
+      .setSize(1, 1)
+      .print('自定义内容：哈哈哈哈')
+      .print();
+      let buffer = printerJobs.buffer();
+      // console.log('ArrayBuffer', 'length: ' + buffer.byteLength, ' hex: ' + ab2hex(buffer));
+      // 1.并行调用多次会存在写失败的可能性
+      // 2.建议每次写入不超过20字节
+      // 分包处理，延时调用
+      const maxChunk = 20;
+      const delay = 20;
+      for (let i = 0, j = 0, length = buffer.byteLength; i < length; i += maxChunk, j++) {
+        let subPackage = buffer.slice(i, i + maxChunk <= length ? (i + maxChunk) : length);
+        setTimeout(this._writeBLECharacteristicValue, j * delay, subPackage);
+      }
   },
 
   //4合1
