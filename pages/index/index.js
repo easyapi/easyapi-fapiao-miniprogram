@@ -47,8 +47,11 @@ Page({
     shopName: '',
     qrTxt: '', //二维码地址
     show: false,
-    customCategoryIndex: ''
-
+    customCategoryIndex: '',
+    preferentialPolicyFlag: '',
+    preferentialPolicyName: '',
+    taxRate: '',
+    zeroRateFlag: ''
   },
 
 
@@ -69,6 +72,10 @@ Page({
             no: res.data.content[0].taxCode.no,
             rate: res.data.content[0].rate,
             name: res.data.content[0].name,
+            preferentialPolicyFlag: res.data.content[0].taxCode.preferentialPolicyFlag,
+            preferentialPolicyName: res.data.content[0].taxCode.preferentialPolicyName,
+            taxRate: res.data.content[0].taxCode.taxRate / 100,
+            zeroRateFlag: res.data.content[0].taxCode.zeroRateFlag
           })
           return
         }
@@ -238,6 +245,10 @@ Page({
         // customCategoryId: this.data.customCategoryId,
         number: 1,
         price: this.data.inputVal,
+        preferentialPolicyFlag: this.data.preferentialPolicyFlag,
+        preferentialPolicyName: this.data.preferentialPolicyName,
+        taxRate: this.data.taxRate,
+        zeroRateFlag: this.data.zeroRateFlag
       }]
     }
     this.setData({
@@ -248,10 +259,10 @@ Page({
         this.setData({
           qrTxt: `https://fapiao-scan.easyapi.com/?code=${res.data.content}`
         })
-         this.setQRcode()
-         setTimeout(() => {
-           this.customPrint()
-         }, 11000)
+        this.setQRcode()
+        setTimeout(() => {
+          this.customPrint()
+        }, 11000)
       } else {
         // 跳转二维码页面
         if (res.data.code == 1) {
@@ -323,7 +334,7 @@ Page({
   /**
    * 自定义内容
    */
-  customPrint(){
+  customPrint() {
     let printerJobs = new PrinterJobs();
     printerJobs
       .setAlign('ct')
@@ -333,17 +344,17 @@ Page({
       .setSize(1, 1)
       .print('自定义内容：哈哈哈哈')
       .print();
-      let buffer = printerJobs.buffer();
-      // console.log('ArrayBuffer', 'length: ' + buffer.byteLength, ' hex: ' + ab2hex(buffer));
-      // 1.并行调用多次会存在写失败的可能性
-      // 2.建议每次写入不超过20字节
-      // 分包处理，延时调用
-      const maxChunk = 20;
-      const delay = 20;
-      for (let i = 0, j = 0, length = buffer.byteLength; i < length; i += maxChunk, j++) {
-        let subPackage = buffer.slice(i, i + maxChunk <= length ? (i + maxChunk) : length);
-        setTimeout(this._writeBLECharacteristicValue, j * delay, subPackage);
-      }
+    let buffer = printerJobs.buffer();
+    // console.log('ArrayBuffer', 'length: ' + buffer.byteLength, ' hex: ' + ab2hex(buffer));
+    // 1.并行调用多次会存在写失败的可能性
+    // 2.建议每次写入不超过20字节
+    // 分包处理，延时调用
+    const maxChunk = 20;
+    const delay = 20;
+    for (let i = 0, j = 0, length = buffer.byteLength; i < length; i += maxChunk, j++) {
+      let subPackage = buffer.slice(i, i + maxChunk <= length ? (i + maxChunk) : length);
+      setTimeout(this._writeBLECharacteristicValue, j * delay, subPackage);
+    }
   },
 
   //4合1
@@ -405,7 +416,7 @@ Page({
       })
       return
     }
-    if(!role.test(this.data.inputVal)) {
+    if (!role.test(this.data.inputVal)) {
       wx.showToast({
         title: '请输入正确的开票金额',
         icon: 'none'
@@ -493,7 +504,7 @@ Page({
       phone: wx.getStorageSync('phone')
     })
     let arr = wx.getStorageSync('selectContent') ? wx.getStorageSync('selectContent') : []
-    if(arr.length === 0 ){
+    if (arr.length === 0) {
       return
     }
     arr.forEach(item => {
