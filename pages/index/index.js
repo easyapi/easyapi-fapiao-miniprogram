@@ -49,9 +49,9 @@ Page({
     show: false,
     customCategoryIndex: '',
     preferentialPolicyFlag: '',
-    preferentialPolicyName: '',
+    preferentialPolicyName: null,
     taxRate: '',
-    zeroRateFlag: ''
+    zeroRateFlag: null
   },
 
 
@@ -72,10 +72,10 @@ Page({
             no: res.data.content[0].taxCode.no,
             rate: res.data.content[0].rate,
             name: res.data.content[0].name,
-            preferentialPolicyFlag: res.data.content[0].taxCode.preferentialPolicyFlag,
-            preferentialPolicyName: res.data.content[0].taxCode.preferentialPolicyName,
-            taxRate: res.data.content[0].taxCode.taxRate / 100,
-            zeroRateFlag: res.data.content[0].taxCode.zeroRateFlag
+            preferentialPolicyFlag: res.data.content[0].taxCode.preferentialPolicyFlag,
+            preferentialPolicyName: res.data.content[0].taxCode.preferentialPolicyName,
+            taxRate: res.data.content[0].taxCode.taxRate / 100,
+            zeroRateFlag: res.data.content[0].taxCode.zeroRateFlag
           })
           return
         }
@@ -87,6 +87,10 @@ Page({
               no: item.no,
               rate: item.rate,
               name: item.name,
+              preferentialPolicyFlag: item.preferentialPolicyFlag,
+              preferentialPolicyName: item.preferentialPolicyName,
+              taxRate: item.taxRate / 100,
+              zeroRateFlag: item.zeroRateFlag
             })
           }
         })
@@ -101,6 +105,10 @@ Page({
           no: '',
           rate: '',
           name: '',
+          preferentialPolicyFlag: '',
+          preferentialPolicyName: null,
+          taxRate: '',
+          zeroRateFlag: null
         })
       }
     })
@@ -141,7 +149,6 @@ Page({
 
   // 点击获取点击类别的信息
   getItemImfor(e) {
-    console.log(e)
     this.setData({
       no: e.target.dataset.item.taxCode.no,
       rate: e.target.dataset.item.taxCode.rate,
@@ -212,7 +219,6 @@ Page({
    * 查看二维码
    */
   seeQRcode(form) {
-
     if (this.data.category == '' || this.data.category == '请选择发票类型') {
       wx.showToast({
         title: '请选择发票类型',
@@ -245,10 +251,10 @@ Page({
         // customCategoryId: this.data.customCategoryId,
         number: 1,
         price: this.data.inputVal,
-        preferentialPolicyFlag: this.data.preferentialPolicyFlag,
-        preferentialPolicyName: this.data.preferentialPolicyName,
-        taxRate: this.data.taxRate,
-        zeroRateFlag: this.data.zeroRateFlag
+        preferentialPolicyFlag: this.data.preferentialPolicyFlag,
+        preferentialPolicyName: this.data.preferentialPolicyName,
+        taxRate: this.data.taxRate,
+        zeroRateFlag: this.data.zeroRateFlag
       }]
     }
     this.setData({
@@ -260,7 +266,7 @@ Page({
           qrTxt: `https://fapiao-scan.easyapi.com/?code=${res.data.content}`
         })
         this.setQRcode()
-        if(wx.getStorageSync('tip')){
+        if (wx.getStorageSync('tip')) {
           setTimeout(() => {
             this.customPrint()
           }, 11000)
