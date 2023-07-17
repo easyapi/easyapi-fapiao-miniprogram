@@ -38,6 +38,11 @@
   margin: var(--cell-group-inset-padding,30px 16px 0 16px)
 }
 
+.remember{
+  margin: 20rpx 60rpx;
+
+}
+
 .tips{
   position:fixed;
   width: 100%;

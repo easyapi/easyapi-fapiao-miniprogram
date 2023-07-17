@@ -15,6 +15,10 @@
       </view>
     </van-field>
   </van-cell-group>
+  <view class="remember">
+    <van-checkbox value="{{ ifRemember }}" icon-size="18px" shape="square" bind:change="onChange">记住密码</van-checkbox>
+  </view>
+
   <view class="btn">
     <van-button type="primary" size="large" bindtap="login">登录</van-button>
   </view>

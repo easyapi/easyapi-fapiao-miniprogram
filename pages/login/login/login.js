@@ -9,6 +9,7 @@ Page({
    */
   data: {
     name: getApp().globalData.name,
+    ifRemember: false,
     userInfo: {
       username: '',
       password: '',
@@ -30,6 +31,15 @@ Page({
   inputPassword(event) {
     this.setData({
       'userInfo.password': event.detail
+    })
+  },
+
+  /**
+   * 是否记住
+   */
+  onChange(event) {
+    this.setData({
+      ifRemember: event.detail
     })
   },
 
@@ -66,6 +76,9 @@ Page({
         wx.showToast({
           title: res.data.message,
         })
+        if(this.data.ifRemember){
+          wx.setStorageSync('userInfo', this.data.userInfo)
+        }
         wx.navigateTo({
           url: '/pages/index/index'
         })
@@ -108,7 +121,11 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow: function () {
-
+    if(wx.getStorageSync('userInfo')){
+      this.setData({
+        userInfo: wx.getStorageSync('userInfo')
+      })
+    }
   },
 
   /**
