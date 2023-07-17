@@ -260,9 +260,11 @@ Page({
           qrTxt: `https://fapiao-scan.easyapi.com/?code=${res.data.content}`
         })
         this.setQRcode()
-        setTimeout(() => {
-          this.customPrint()
-        }, 11000)
+        if(wx.getStorageSync('tip')){
+          setTimeout(() => {
+            this.customPrint()
+          }, 11000)
+        }
       } else {
         // 跳转二维码页面
         if (res.data.code == 1) {
@@ -342,7 +344,7 @@ Page({
       .print(printerUtil.fillLine())
       .setAlign('ct')
       .setSize(1, 1)
-      .print('自定义内容：哈哈哈哈')
+      .print(wx.getStorageSync('tip'))
       .print();
     let buffer = printerJobs.buffer();
     // console.log('ArrayBuffer', 'length: ' + buffer.byteLength, ' hex: ' + ab2hex(buffer));

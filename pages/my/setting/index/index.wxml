@@ -3,6 +3,15 @@
   <van-cell-group>
     <van-cell title="蓝牙打印机" is-link data-url='/pages/my/setting/printer/index' value="{{name}}" bindtap='jumpPage' />
   </van-cell-group>
-<view class="title">打印设置</view>
-<van-cell title="小票宽度"  url="" value="58" />
+  <view class="title">打印设置</view>
+  <van-cell title="小票宽度"  url="" value="58" />
+  <view class="title">打印提示语</view>
+  <van-field
+    value="{{ tip }}"
+    input-align="right"
+    clearable
+    label="提示语"
+    placeholder="设置提示语"
+    bind:change="changeTip"
+  />
 </view>

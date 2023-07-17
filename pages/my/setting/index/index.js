@@ -1,8 +1,3 @@
-const {
-  updateUnbind
-} = require('../../../../api/third-party')
-
-import Dialog from '../../../../miniprogram_npm/@vant/weapp/dialog/dialog';
 
 Page({
 
@@ -11,13 +6,21 @@ Page({
    */
   data: {
     loginSuccess: getApp().globalData.loginSuccess,
-    name: ''
+    name: '',
+    tip: '',
   },
 
   jumpPage(e) {
     wx.navigateTo({
       url: e.currentTarget.dataset.url + '?id=' + e.currentTarget.dataset.id,
     })
+  },
+
+  changeTip(e){
+    this.setData({
+      tip: e.detail
+    })
+    wx.setStorageSync('tip', e.detail)
   },
 
   /**
@@ -46,6 +49,15 @@ Page({
     } else {
       this.setData({
         name: '未连接'
+      })
+    }
+    if(wx.getStorageSync('tip')){
+      this.setData({
+        tip: wx.getStorageSync('tip')
+      })
+    }else {
+      this.setData({
+        tip: '',
       })
     }
   },
