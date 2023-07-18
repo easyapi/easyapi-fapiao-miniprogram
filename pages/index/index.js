@@ -337,6 +337,7 @@ Page({
               arrPrint.push(util.hexStringToBuff("\n"));
               arrPrint.push(util.sendDirective([0x1B, 0x61, 0x01])); //居中
               arrPrint.push(util.hexStringToBuff("\n"));
+  
               arrPrint.forEach((item, index) => {
                 setTimeout(() => {
                   that._writeBLECharacteristicValue(item)
@@ -362,6 +363,10 @@ Page({
       .setAlign('ct')
       .setSize(1, 1)
       .print(this.data.remake)
+      .setSize(2, 2)
+      .print()
+      .print()
+      .print()
       .print();
     let buffer = printerJobs.buffer();
     // console.log('ArrayBuffer', 'length: ' + buffer.byteLength, ' hex: ' + ab2hex(buffer));
