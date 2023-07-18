@@ -16,13 +16,6 @@ Page({
     })
   },
 
-  changeTip(e){
-    this.setData({
-      tip: e.detail
-    })
-    wx.setStorageSync('tip', e.detail)
-  },
-
   /**
    * 生命周期函数--监听页面加载
    */
@@ -49,15 +42,6 @@ Page({
     } else {
       this.setData({
         name: '未连接'
-      })
-    }
-    if(wx.getStorageSync('tip')){
-      this.setData({
-        tip: wx.getStorageSync('tip')
-      })
-    }else {
-      this.setData({
-        tip: '',
       })
     }
   },

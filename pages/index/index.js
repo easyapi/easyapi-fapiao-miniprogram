@@ -51,7 +51,8 @@ Page({
     preferentialPolicyFlag: '',
     preferentialPolicyName: null,
     taxRate: '',
-    zeroRateFlag: null
+    zeroRateFlag: null,
+    remake: '',
   },
 
 
@@ -119,13 +120,23 @@ Page({
    */
   getSetting() {
     const params = {
-      fieldKeys: 'scan_effective_day',
+      fieldKeys: 'scan_effective_day,scan_remark',
     }
     findFieldKeyList(params).then((res) => {
       if (res.data.code === 1) {
-        this.setData({
-          'effectiveDay': res.data.content[0] ? res.data.content[0].fieldValue : ''
+        res.data.content.forEach(item => {
+          if(item.fieldKey === 'scan_effective_day'){
+            this.setData({
+              'effectiveDay': item.fieldValue
+            })
+          }
+          if(item.fieldKey === 'scan_remark'){
+            this.setData({
+              'remake': item.fieldValue
+            })
+          }
         })
+        
       }
     })
   },
@@ -266,7 +277,7 @@ Page({
           qrTxt: `https://fapiao-scan.easyapi.com/?code=${res.data.content}`
         })
         this.setQRcode()
-        if (wx.getStorageSync('tip')) {
+        if (this.data.remake && this.data.remake !== '') {
           setTimeout(() => {
             this.customPrint()
           }, 11000)
@@ -350,7 +361,7 @@ Page({
       .print(printerUtil.fillLine())
       .setAlign('ct')
       .setSize(1, 1)
-      .print(wx.getStorageSync('tip'))
+      .print(this.data.remake)
       .print();
     let buffer = printerJobs.buffer();
     // console.log('ArrayBuffer', 'length: ' + buffer.byteLength, ' hex: ' + ab2hex(buffer));
