@@ -23,7 +23,7 @@ Page({
     getShopList(this.data.pageInfo).then(res => {
       if(res.data.code === 1){
         this.setData({
-          list: this.data.list.concat(res.data.content.content)
+          list: this.data.list.concat(res.data.content)
         })
       }
     })
